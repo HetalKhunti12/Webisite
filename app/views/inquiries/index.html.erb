@@ -1,0 +1,118 @@
+  <div class="container"> 
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Enquiries</h1>
+    </div>
+  </div>
+  <% if @inquiries.present? %>
+    <div class="table-responsive table-first">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Client number</th>
+            <th>Client name</th>
+            <th>Address</th>
+            <th>Client city</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Fax</th>
+            <th>Approved</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @inquiries.each do |ip| %>
+            <tr>
+              <td><%= ip.inquiry.try(:client_number) %></td>
+              <td><%= ip.inquiry.try(:client_name) %></td>
+              <td><%= ip.inquiry.try(:address) %></td>
+              <td><%= ip.inquiry.try(:client_city) %></td>
+              <td><%= ip.inquiry.try(:email) %></td>
+              <td><%= ip.inquiry.try(:phone) %></td>
+              <td><%= ip.inquiry.try(:fax) %></td>
+              <td>
+                <div class="onoffswitch ">
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch<%=ip.inquiry.id%>"  <%= ip.inquiry.approved ? "checked" : "" %> data-id="<%= ip.inquiry.id %>">
+                  <label class="onoffswitch-label" for="myonoffswitch<%=ip.inquiry.id%>">
+                      <span class="onoffswitch-inner"></span>
+                      <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+              <td><%= link_to '', edit_inquiry_path(ip.inquiry), class: "fa fa-pencil-square-o btn-edit" %></td>
+              <td><%= link_to '', ip.inquiry, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-dlt fa fa-trash" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="pull-right">
+      <%= will_paginate @inquiries, renderer: BootstrapPagination::Rails %>
+    </div>
+  <% else %>
+     <p>Record Not Found</p>
+  <% end %>
+</div>
+
+<div class="container"> 
+
+  <% if @my_inquiries.present? %>
+    <div class="row">
+      <div class="col-md-8">
+        <h1>My Enquiries</h1>
+      </div>
+    </div>
+    <div class="table-responsive table-first">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Client number</th>
+            <th>Client name</th>
+            <th>Address</th>
+            <th>Client city</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Fax</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @my_inquiries.each do |inquiry| %>
+            <tr>
+              <td><%= inquiry.client_number %></td>
+              <td><%= inquiry.client_name %></td>
+              <td><%= inquiry.address %></td>
+              <td><%= inquiry.client_city %></td>
+              <td><%= inquiry.email %></td>
+              <td><%= inquiry.phone %></td>
+              <td><%= inquiry.fax %></td>
+              <td><%= link_to '', inquiry_edit_inquiry_path(inquiry), class: "fa fa-pencil-square-o btn-edit" %></td>
+              <td><%= link_to '', inquiry, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-dlt fa fa-trash" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pull-right">
+      <%= will_paginate @my_inquiries, renderer: BootstrapPagination::Rails %>
+    </div>
+  <% else %>
+    <p>Record Not Found</p>
+  <% end %>
+
+  <br>
+</div>
+
+<script type="text/javascript">
+  $('.onoffswitch-checkbox').click(function() {
+    var id = $(this).data("id");
+    $.ajax({
+      type: 'GET', 
+      url:  'approved/' + ($(this).data("id")) + '/' + $("#myonoffswitch"+id).is(':checked')
+    });
+    return true;
+  });
+</script>

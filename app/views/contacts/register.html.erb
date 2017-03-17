@@ -1,0 +1,184 @@
+
+<!-- INNER CONTENT -->
+<div class="inner-page clearfix">
+  <div class="container">
+  <div class="fetured-title pink bold"><div class="text-uppercase Black">CUSTOMER DETAILS</div></div>
+  <div class="pk-ttl">Please select a profile type from the options below:</div>
+  <!-- <div class="pk-dtl">The type you select will affect which categories you can list under, and in addition services and venues have certain other features & requirements. You cannot have a profile which is more than one profile type, eg. an act and a venue - you would have to have two separate listings. An "act" is the most common form of profile on EntertainOz.</div> -->
+    <div>
+      <div class="control-group">
+        <%= label_tag :contact_type, "Type" %>&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= radio_button_tag :contact_type, 'artist' %> <span>Artist</span> &nbsp;&nbsp;&nbsp;&nbsp;
+        <%= radio_button_tag :contact_type, 'service' %> <span>Service</span>
+      </div>
+    </div>
+    <div class="packages" style="display: none;">
+      
+      <div class="col-md-12">
+        <ul class="progressbar">
+          <li class="active">Select a Package</li>
+          <li>Account Details</li>
+          <li>Payment</li>
+          <li>Confirmation</li>
+        </ul>
+      </div>
+      <div class="package-block">
+          <div class="col-md-4 col-sm-4 no-padding">
+              <div class="package-ttl p1">&nbsp;</div>
+              <div class="package-row">Artist/Service Listing</div>
+              <div class="package-row">Separate Account Login</div>
+              <div class="package-row">Manage Listing</div>
+              <div class="package-row">Photos</div>
+              <div class="package-row">Videos</div>
+              <div class="package-row">Listing Design</div>
+              <div class="package-row">Listing Write-up</div>
+              <div class="package-row">Artist Profile Write-up</div>
+              <div class="package-row">Availability Calendar</div>
+              <div class="package-row">Featured Listing</div>
+              <div class="package-row">Featured Category</div>
+              <div class="package-row">Listing Reviews</div>
+              <div class="package-row">Communications Room</div>
+              <div class="package-row">Reporting</div>
+              <div class="package-row">Support</div>
+              <div class="package-row"></div>
+          </div> 
+          <div class="col-md-2 col-sm-2 no-padding">
+              <div class="package-ttl p2">FREE <div class="package-inrttl">$0</div></div>
+              <div class="package-row"><img <%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= link_to "BOOK NOW!", new_contact_registration_path(package_id: 1, :contact_type => "artist"), class: "book-now"%></div>
+          </div> 
+          <div class="col-md-2 col-sm-2 no-padding">
+              <div class="package-ttl p3">BRONZE <div class="package-inrttl">$29.99</div></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= link_to "BOOK NOW!", new_contact_registration_path(package_id: 2, :contact_type => "artist"), class: "book-now"%></div>
+          </div>
+          <div class="col-md-2 col-sm-2 no-padding">
+              <div class="package-ttl p4">SILVER <div class="package-inrttl">$49.99</div></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= link_to "BOOK NOW!", new_contact_registration_path(package_id: 3, :contact_type => "artist"), class: "book-now"%></div>
+          </div>
+          <div class="col-md-2 col-sm-2 no-padding">
+              <div class="package-ttl p5">GOLD <div class="package-inrttl">$69</div></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("false.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= link_to "BOOK NOW!", new_contact_registration_path(package_id: 4, :contact_type => "artist"), class: "book-now"%></div>
+          </div>
+      </div>
+      <!-- <div class="register-btn"><button>Register now!</button></div> -->
+      
+    </div>
+    
+    <div class="packages_service" style="display: none;">
+      
+      <div class="col-md-12">
+        <ul class="progressbar">
+          <li class="active">Select a Package</li>
+          <li>Account Details</li>
+          <li>Payment</li>
+          <li>Confirmation</li>
+        </ul>
+      </div>
+      <div class="package-block">
+           <div class="col-md-4 col-sm-4 no-padding">
+              <div class="package-ttl p1">&nbsp;</div>
+              <div class="package-row">Artist/Service Listing</div>
+              <div class="package-row">Separate Account Login</div>
+              <div class="package-row">Manage Listing</div>
+              <div class="package-row">Photos</div>
+              <div class="package-row">Videos</div>
+              <div class="package-row">Listing Design</div>
+              <div class="package-row">Listing Write-up</div>
+              <div class="package-row">Artist Profile Write-up</div>
+              <div class="package-row">Availability Calendar</div>
+              <div class="package-row">Featured Listing</div>
+              <div class="package-row">Featured Category</div>
+              <div class="package-row">Listing Reviews</div>
+              <div class="package-row">Communications Room</div>
+              <div class="package-row">Reporting</div>
+              <div class="package-row">Support</div>
+              <div class="package-row"></div>
+              
+          </div> 
+          <div class="col-md-2 col-sm-2 no-padding">
+              <div class="package-ttl p2">PER YEAR <div class="package-inrttl">$250</div></div>
+              <div class="package-row"><img <%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= image_tag("true.png") %></div>
+              <div class="package-row"><%= link_to "BOOK NOW!", new_contact_registration_path(package_id: 5, :contact_type => "service"), class: "book-now"%></div>
+              
+          </div> 
+      </div>
+  
+      
+    </div>
+  </div>
+</div>
+
+

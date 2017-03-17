@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="service_order">Documents:</div>
+  <div class="table-responsive table-first">
+    <table class="table table-bordered">
+      <thead>
+        <th>Title</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <% @documents.each do |doc|%>
+          <tr>
+            <td><%= doc.title %></td>
+            <td><%= link_to "", download_artist_profile_path(doc.id), class: "fa fa-download" %></td>
+          </tr>
+        <% end %>
+      </tbody>  
+    </table>
+  </div>
+</div>

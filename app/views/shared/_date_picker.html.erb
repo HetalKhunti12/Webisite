@@ -1,0 +1,12 @@
+<div class="form-group">
+  <div class='input-group date datepick'>
+    <% if local_assigns.has_key?(:date_class) %>
+        <%= form.text_field date_item, class:"form-control #{date_class}", data: { date_format: 'DD/MM/YYYY' }   %>   
+    <% else %>
+        <%= form.text_field date_item, class:"form-control", data: { date_format: 'DD/MM/YYYY' }   %>  
+    <% end %>    
+    <span class="input-group-addon">
+      <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+  </div>
+</div>

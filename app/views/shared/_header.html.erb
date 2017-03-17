@@ -1,0 +1,80 @@
+<header> 
+	<!-- TOP MENU -->
+	<div class="top-bar">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-sm-4">
+					<ul class="top-menu">
+						<% if contact_signed_in? %>
+							<li><a href="#"><%= current_contact.salutation %> <%= current_contact.first_name %></a></li>
+							<li><%= link_to 'Dashboard', dashboards_path %></li>
+						  <li>
+						  <%= link_to 'Logout', destroy_contact_session_path %>        
+						  </li>
+						<% else %>
+							<li><%= link_to('Register',register_path) %></li>
+						  <li>
+						  <%= link_to 'Login', new_contact_session_path %>  
+						  </li>
+						<% end %>
+					</ul>
+				</div>
+				<div class="col-md-4 col-sm-4"> </div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- MENU -->
+	<div class="menu-block">
+		<div class="container">
+			<div class="row">
+				<div class="header_menu_block">
+					<div class="col-md-3 logo-display"><a href="/"> <%= image_tag("logo.jpg", :alt => "Theme Logo", class: "img-responsive logo") %></a></div>
+					<div class="col-md-9">
+						<nav class="navbar-default main_menu navigation-deafault header_menu" role="navigation">
+							<div class="navbar-header res-nav-header toggle-respon">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+							</div>
+							<div class="collapse navbar-collapse nav_coll main-menu-ul no-padding">
+								<ul>
+									<% if @categories.present? %>
+										<% @categories.each do |cat| %>
+									  	<li id="<%= cat.name %>"><%=  link_to cat.name, category_path(cat.id) %></li>
+									  <% end %>
+										<li id=""><a href="#">Events</a></li>
+									<% end %>
+								</ul>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<!-- BANNER -->
+<div class="banner"> <%= image_tag("banner.jpg", :alt => "First slide", style: "width:100%") %>
+	<div class="container">
+		<div class="text-block">
+			<div class="banner-text"> <%= @package %> </div>
+			<!--<button class="theme-btn banner-btn"> Make an Enquiry </button>-->
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $("li").click(function () {
+        var id = $(this).attr("id");
+        $('#' + id).siblings().find(".active1").removeClass("active1");
+        $('#' + id).addClass("active1");
+        localStorage.setItem("selectedolditem", id);
+    });
+    var selectedolditem = localStorage.getItem('selectedolditem');
+    if (selectedolditem != null) {
+        $('#' + selectedolditem).siblings().find(".active1").removeClass("active1");
+        $('#' + selectedolditem).addClass("active1");
+    }
+});
+</script>

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Social Media Links</h1>
+    </div>
+    <div class="col-md-4 text-right">
+      <h1><%= link_to 'New Social media link', new_admin_social_media_link_path, 'data-no-turbolink' => true,  :class => "btn btn-default align-center"  %></h1>
+    </div>
+  </div>
+  <div class="table-responsive table-first">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Link</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @social_media_links.each do |admin_social_media_link| %>
+          <tr>
+            <td><%= admin_social_media_link.name %></td>
+            <td><%= admin_social_media_link.link %></td>
+            <td><%= link_to '', edit_admin_social_media_link_path(admin_social_media_link), class: "fa fa-pencil-square-o btn-edit" %></td>
+            <td><%= link_to '', [:admin, admin_social_media_link], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-dlt fa fa-trash" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

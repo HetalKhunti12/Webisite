@@ -1,0 +1,1 @@
+json.array! @admin_social_media_links, partial: 'admin_social_media_links/admin_social_media_link', as: :admin_social_media_link

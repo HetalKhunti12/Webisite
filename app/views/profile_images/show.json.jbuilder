@@ -1,0 +1,1 @@
+json.partial! "profile_images/profile_image", profile_image: @profile_image

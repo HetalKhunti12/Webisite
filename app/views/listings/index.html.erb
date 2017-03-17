@@ -1,0 +1,50 @@
+
+<h1>Listings</h1>
+
+<div class="row">
+  <div class="col-md-12 text-right">
+    <h1><%= link_to 'New Listing', new_listing_path, :class => "btn btn-default align-center"  %></h1>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Ttitle</th>
+      <th>Location</th>
+      <th>State</th>
+      <th>Status</th>
+      <th>Level</th>
+      <th>Enabled</th>
+      <th>Approved</th>
+      <th>Joined</th>
+      <th>Modified</th>
+      <td colspan="2">Actions</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @listings.each do |listing| %>
+      <tr>
+        <td><%= listing.objectTitle %></td>
+        <td><%= listing.objectLocation1 %></td>
+        <td><%= listing.objectLocation2 %></td>
+        <td><%= listing.objectStatus %></td>
+        <td><%= listing.objectDescription1 %></td>
+        <td><%= listing.objectEnabled ? "TRUE" : "FALSE" %></td>
+        <td><%= listing.objectApproved ? "TRUE" : "FALSE" %></td>
+        <td><%= listing.created_at.strftime('%d/%m/%Y') %></td>
+        <td><%= listing.updated_at.strftime('%d/%m/%Y') %></td>
+        <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
+        <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="pull-right">
+  <%= will_paginate @listings, renderer: BootstrapPagination::Rails %>
+</div>
+
+<br>
+
+

@@ -1,0 +1,31 @@
+<div class="form-inputs">
+  <%= f.fields_for :listings do |lf| %>
+    <%= lf.input :objectTitle, label: "*Title" %>
+    <%= lf.input :objectLocation1, label: "*SUBURB/TOWN" %>
+    <%= lf.input :objectLocation2, label: "*CITY" %>
+    <%= lf.input :objectCountry, label: "*COUNTRY" %>
+    <%= lf.input :objectPrimaryCategoryID, label: "*PRIMARY CATEGORY" %>
+    <%= lf.input :objectRootCategoryId, label: "" %>
+    <%= lf.input :objectDescription1, label: "*SHORT DESCRIPTION" %>
+    <%= lf.input :objectDescription2, label: "*LONG DESCRIPTION" %>
+    <%= lf.input :objectKeywords, label: "*KEYWORDS" %>
+    <%= lf.input :objectPricing, label: "*PRICING" %>
+  <% end %>
+  <h2> Contact Detail </h2>
+  <%= f.input :company, label: "COMPANY NAME" %>
+  <%= f.input :first_name, label: "*FIRST NAME" %>
+  <%= f.input :last_name, label: "*LAST NAME" %>
+  <%= f.input :address, label: "ADDRESS" %>
+  <%= f.input :work_city, label: "SUBURB/TOWN" %>
+  <%= f.input :work_state, label: "STATE" %>
+  <%= f.input :work_postcode,label: "POSTCODE" %>
+  <%= f.input :work_country, label: "COUNTRY" %>
+  <%= f.input :work_phone, label: "*PHONE" %>
+  <%= f.input :work_email, label: "*EMAIL" %>
+  <%= f.input :email_format, label: "*EMAIL FORMAT" %>
+  <%= f.input :fax, label: "FAX" %>
+  <%= f.input :mobile_phone, label: "*Mobile" %>
+  <%= f.input :website, label: "WEBSITE" %>
+  <%= f.input :abn, label: "ABN" %>
+    
+</div>

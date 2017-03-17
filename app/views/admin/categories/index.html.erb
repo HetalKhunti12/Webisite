@@ -1,0 +1,56 @@
+<div class="container"> 
+  <h1>Listing Categories</h1>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <h1><%= link_to 'New Category', new_admin_category_path, :class => "btn btn-default align-center"  %></h1>
+    </div>
+  </div>
+
+  <div class="ent-row">
+    <div class="admin-block-20 accordian">
+      <div class="listContainer">
+        <% @categories.each do |category| %>
+          <ul class="expList">
+            <li class="collapsed"><%= category.name %>
+              <ul>
+                <% category.subtree.each do |cat| %>
+                  <li> 
+                    <%= link_to cat.name, edit_admin_category_path(cat) %>
+                    <%= link_to 'Destroy', [:admin, cat], method: :delete, data: { confirm: 'Are you sure?' } %> 
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".panel1").click(function(){
+    var a = $(this).text()
+     $("."+ a).slideToggle("slow");
+  });
+})
+
+  function prepareList() {
+
+    $('.expList').find('li:has(ul)').unbind('click').click(function(event) {
+      if(this == event.target) {
+        $(this).toggleClass('expanded');
+        $(this).children('ul').toggle('medium');
+      }
+      }).addClass('collapsed').removeClass('expanded').children('ul').hide();
+  };
+   
+  $(document).ready( function() {
+      prepareList();
+  });
+</script>
+
+
+
+

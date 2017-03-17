@@ -1,0 +1,154 @@
+<%= form_for(@contact) do |f| %>
+    
+  <div class="inner-page clearfix">
+    <div class="container">
+      <div class="fetured-title pink bold">
+      <div class="text-uppercase Black">
+        Account DETAILS
+      </div>
+    </div>
+      <div class="inner-page clearfix">
+        <div class="container">
+          <div class="packages">
+            <div class="col-md-12">
+              <ul class="progressbar">
+                <li>Select a Package</li>
+                <li class="active">Account Details</li>
+                <li>Payment</li>
+                <li>Confirmation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-block customer-details">
+        <div class="form-padding">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <div class="text-field">
+                <%= f.label "COMPANY NAME*" %>
+                <%= f.text_field :company, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "FULL NAME*" %>
+                <%= f.text_field :first_name, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "ADDRESS" %>
+                <%= f.text_field :address, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "COUNTRY" %>
+                <%= f.select :work_country, options_for_select(CS.countries.map { |h| [h[1], h[0]] }), {include_blank: "Select Country"}, class: "form-control"%> 
+              </div>
+              <div class="text-field">
+                <%= f.label "STATE*" %>
+                <%= f.select :work_state, '',{include_blank: ""},  class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "SUBURB/TOWN" %>
+                <%= f.select :work_city, '', {include_blank: ""}, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "POSTCODE" %>
+                <%= f.text_field :work_postcode, class: "form-control" %>
+              </div> 
+              <div class="text-field">
+                <%= f.label "PHONE *" %>
+                <%= f.text_field :work_phone, class: "form-control" %>
+              </div> 
+              <div class="text-field">
+                <%= f.label "MOBILE *" %>
+                <%= f.text_field :mobile_phone, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+
+                <div class="text-field">
+                  <%= f.label "EMAIL*" %>
+                  <%= f.text_field :work_email, class: "form-control" %>
+                </div>
+                <div class="text-field">
+                  <%= f.label "PASSWORD *" %>
+                  <%= f.password_field :password, class: "form-control" %>
+                </div>
+                <div class="text-field">
+                  <%= f.label "PASSWORD CONFIRMATION *" %>
+                  <%= f.password_field :password_confirmation, class: "form-control" %>
+                </div>
+                <div class="text-field email-format">
+                  <%= f.label "Prefered EMAIL FORMAT*" %>
+                  <%= f.radio_button :email_format, "email", class: "a" %> HTML
+                  <%= f.radio_button :email_format, "text" %> Text
+                </div>
+                <div class="text-field">
+                  <%= f.label "*FAX" %>
+                  <%= f.text_field :fax, class: "form-control" %>
+                </div>
+                <div class="text-field">
+                  <%= f.label "WEBSITE" %>
+                  <%= f.text_field :website, class: "form-control" %>
+                </div>
+                <div class="text-field">
+                  <%= f.label "ABN" %>
+                  <%= f.text_field :abn, class: "form-control" %>
+                </div>
+                <div class="text-field">
+                  <%= f.label "Invoicing With Gst" %>
+                  <%= f.check_box :invoicing_with_gst %>
+                </div>
+                <div class="text-field">
+                  <%= f.label "Old Invoicing" %>
+                  <%= f.check_box :old_invoicing %>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="cust_detail_btn">
+          <div class="text-center"> 
+            <%= f.submit "Send Now", class: "send-btn"%>&nbsp;
+            <a href="javascript:void(0)" class="reset-btn">Reset</a> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+</br>
+
+<script type="text/javascript">
+  $('.reset-btn').click(function(){
+    $('.form-control').val('')
+    $('#contact_email_format_email').attr('checked',false);
+    $('#contact_email_format_text').attr('checked',false);
+    $("#contact_work_country").val('');
+    $('#contact_work_state').val('');
+  });
+
+  $("#contact_work_country").change(function() {
+    if($(this).val() != ""){
+      $.ajax({
+        type: "GET",
+        url: '/states/'+ $(this).val(),
+        dataType: "script"
+      });
+    }
+  });
+
+  $("#contact_work_state").change(function() {
+    if($(this).val() != ""){
+      $.ajax({
+        type: "GET",
+        url: '/cities/'+ $(this).val(),
+        dataType: "script"
+      });
+    }
+  });
+
+
+</script>
+
+

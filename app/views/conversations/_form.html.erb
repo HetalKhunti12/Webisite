@@ -1,0 +1,19 @@
+<%= form_for :conversation, url: :conversations do |f| %>
+  <%#= f.input :recipients, input_html: { value: @email , required: true}  %>
+
+  <%= simple_fields_for "artist_name" do |o| %>
+      <%= o.input :recipients, :as => :autocomplete,  label: false, id: "field_1", input_html: { placeholder: 'Search by names or email' } %> 
+  <% end %>
+  <%= f.text_field :subject %>
+  <%= f.text_area :body, as: :text %>
+  <div class="form-actions">
+    <%= f.submit "Save", class: 'btn-primary' %>
+    <%= f.submit 'Reset', type: :reset, class: 'btn-danger' %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		addCommunicationInquiryCallbacks();
+	});
+</script>

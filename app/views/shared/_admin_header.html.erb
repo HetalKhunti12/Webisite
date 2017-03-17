@@ -1,0 +1,39 @@
+<div class="common_header">
+	<!-- MENU -->
+	<div class="menu-block">
+		<div class="container">
+			<div class="row">
+				<div class="header_menu_block">
+					<div class="col-md-3 logo-display"><a href="/"> <%= image_tag("logo.jpg", :alt => "Theme Logo", class: "img-responsive logo") %></a></div>
+					<div class="col-md-9">
+						<nav class="navbar-default main_menu navigation-deafault header_menu" role="navigation">
+							<div class="navbar-header res-nav-header toggle-respon">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+							</div>
+							<div class="collapse navbar-collapse nav_coll main-menu-ul no-padding">
+								<ul>
+									<% if current_contact.present? %>
+										<li class="current-menu-item"><a href="/admin/dashboards">Dashboards</a></li>
+										<li class="current-menu-item"><a href="/admin/artist_profiles">Profiles</a></li>
+										<li class=""><a href="/admin/categories">Categories</a></li>
+										<li class=""><a href="/admin/contacts">Members</a></li>
+										<li class=""><a href="/admin/users">Users</a></li>
+										<li class=""><a href="/admin/inquiries">Enquiries</a></li>
+										<li class=""><a href="/admin/banners">Banners</a></li>
+										<li class=""><a href="/admin/social_media_links">Social Media</a></li>
+										<li class=""><a href="/admin/blogs">Blog</a></li>
+										<li class=""><a href="/admin/how_it_works/1/edit">How It Works</a></li>
+										<li class=""><a href="/admin/abouts/1/edit">About Us</a></li>
+										<li class=""><a href="/admin/testimonials/1/edit">Testimonials</a></li>
+										<li><%= link_to 'Finance System', "http://entoz.itccrails.com.au", target: "_blank" %></li>
+										<li><%= link_to 'Logout', admin_sign_out_path %></li>
+									<% end %>
+								</ul>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,17 @@
+			<%= content_tag_for(:li, conversation) do |conversation| %>
+			  <tr>
+			    <td><%= link_to conversation.subject, conversation_path(conversation) %></td>
+			    <td>
+			    	<%= content_tag_for(:li, conversation.receipts_for(current_user)) do |receipt| %>
+					    <% message = receipt.message %>
+					     <%= message.body %>
+					  <% end %>
+			    </td>
+			    <% if conversation.is_completely_trashed?(current_user) %>
+			      <td><%= link_to 'Untrash', untrash_conversation_path(conversation), method: :post %></td>
+			    <% else %>
+			      <td><%= link_to 'Move to trash', trash_conversation_path(conversation), method: :post %></td>
+			    <% end %>
+			  </tr>
+			<% end %>
+		

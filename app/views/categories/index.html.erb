@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="clearfix">
+        <div class="fetured-title pink bold">
+          <div class="text-uppercase Black"> <%= "Categories" %> </div>
+        </div>
+    
+        <div class="inner_search_sect bg_pink mb40">
+          <div class="col-md-12 no-padding center-block">
+            <%= form_tag search_home_index_path, :method => 'get', :id => "products_search" do %>
+
+              <%= hidden_field_tag :category, params[:id] %>
+
+              <div class="col-md-12 no-padding">
+                <div class="col-md-1 col-sm-1"></div>
+                <div class="col-md-2 col-sm-2 search-text">
+                  <% if @categories.present? %>
+                    <%= select_tag :sub_category_id, options_from_collection_for_select(@categories, :id, :name), :prompt => "Select Category" , class: "form-control" %>
+                  <% end %>
+                </div>
+
+                <div class="col-md-2 col-sm-2 search-text">
+                  <%= select_tag :location2, options_for_select(Category::CITYES), :prompt => "Select Location", class: "form-control" %>
+                </div>
+               
+                <div class="col-md-2 col-sm-2 search-text dt">
+                  <input type="text" class="form-control" name="date" id="datepick" placeholder="Date & Time:" />
+
+                </div>
+               
+                <div class="col-md-2 col-sm-2 search-text">
+                  <%= select_tag :price, options_for_select(ArtistProfile::PRICING), :prompt => "Select Budget", class: "form-control" %>
+                </div>
+                <div class="col-md-2 col-sm-2 search-text key">
+                  <%= submit_tag "Search", :name => nil, class: "btn-search btn-cat" %>
+                </div>
+                <div class="col-md-1 col-sm-1"></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <% if @categories.present? %>
+        <% @categories.each_slice(5) do |cat|%>
+          <div class="ent-row clearfix">
+            <% cat.each do|c| %>
+              <div class="col-md-3 col-sm-4 popular-block" > 
+                <a href="#">
+                  <div class="popular-img all_categories">
+                    <%= link_to category_artist_profiles_category_path(c.id) do %>
+                      <%= image_tag c.image.url %>
+                      <div class="popular-text"><%= c.name %></div>
+                    <% end %>
+                  </div>
+                </a>
+              </div> 
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    $('#datepick').each(function(){
+      $(this).datetimepicker({
+      });
+    });
+  });
+  
+</script>
+
+

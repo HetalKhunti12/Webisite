@@ -1,0 +1,25 @@
+<%= tinymce_assets %>
+<%= form_for(@aboutus, url: admin_abouts_path, method: :post) do |f| %>
+  <%#= f.error_notification %>
+
+    <div class="field">
+      <%= f.label :context %></br>
+      <%= f.text_area :context,  :class => "tinymce", :rows => 10, :cols => 70 %>
+    </div></br>
+
+    <div class="field">
+      <%= f.label :about_us_image %><br>
+      <%= f.file_field :about_us_image, label: "Image" %>
+    </div></br> 
+
+    <div class="field">
+      <%= f.label :about_us_video %><br>
+      <%= f.file_field :about_us_video, label: "Video" %>
+    </div></br>    
+    
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
+<%= tinymce %>

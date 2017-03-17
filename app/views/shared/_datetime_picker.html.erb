@@ -1,0 +1,9 @@
+<% extra_class = "" if local_assigns[:extra_class].nil? %>
+<div class="form-group">
+  <div class='input-group date datepick <%=extra_class%> '>
+    <%= form.text_field date_item, class: "form-control invoice_paid_date", data: { date_format: 'YYYY-MM-DD LT' }  %>      
+    <span class="input-group-addon">
+      <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+  </div>
+</div>

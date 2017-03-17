@@ -1,0 +1,64 @@
+<div class="container">  
+  <div class="row">
+    <div class="col-md-4 "></div>
+      <div class="col-md-4 ">
+        <div class="about_us_head">
+          About-Us
+        </div>
+      </div>
+    <div class="col-md-4 "></div>
+  </div>
+
+  <% @about_us = AboutU.first %>
+  <% if @about_us.present? %>
+    <% if @about_us.about_us_image.present? %>
+      <div class="row">  
+        <div class="col-md-2 "></div>
+          <div class="col-md-8 ">
+            <div class="about_us">
+              <%= image_tag @about_us.about_us_image.url %>
+            </div>
+          </div>
+        <div class="col-md-2 "></div>  
+      </div></br>
+    <% end %>
+    <% if about_us.about_us_video.present? %>
+      <div class="row">  
+        <div class="col-md-2 "></div>
+          <div class="col-md-8 ">
+            <div class="about_us">
+              <%= video_tag @about_us.about_us_video.url, controls: true, type: "video/mp4", size: "365x365" %>
+            </div>
+          </div>
+        <div class="col-md-2 "></div>  
+      </div></br>
+    <% end %>
+
+    <div class="row">  
+      <div class="col-md-2 "></div>
+        <div class="col-md-8 ">
+          <div class="about_us_text">
+            <p><span><%= raw(@about_us.context)%></span></p></br>
+          </div>
+        </div>
+      <div class="col-md-2 "></div>  
+    </div>
+  <% end %>
+</div>
+
+<style type="text/css">
+.about_us img {
+    width: 900px;
+    height: 600px;
+}
+.about_us_head {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+    padding: 20px 0;
+}
+.about_us_text {
+    text-align: justify;
+    font-size: 18px;
+}
+</style>

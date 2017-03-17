@@ -1,0 +1,266 @@
+<div class="container"> 
+  <div id="calendar"></div>
+
+  <div id="createEventModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h3 id="myModalLabel1">Book</h3>
+      </div>
+      <div class="modal-body">
+      	<%= form_for(:availability) do |f| %>
+
+  			  <div class="panel panel-default">    
+  			    <div class="panel-body so-section">
+  			      <div class="form-group">
+  			      	<div class="row">
+  			      		<div class="col-md-4">
+  			      			<%= f.label "Artist Profile" %>
+  			      		</div>
+  			      		<div class="col-md-8">
+                    <% @artist_profiles = ArtistProfile.where("contact_id =?", current_contact.id)%>
+  			  					<%= f.select :artist_profile_id, options_for_select(@artist_profiles .map{|s|[s.title, s.id]}), class:  "form-control" %>
+                    <%= f.hidden_field :contact_id, value: current_contact.id %>
+  			      		</div>
+  			      	</div>
+  			        <div class="row">
+  			          <div class="col-md-4">             
+  			              <%= f.label "Title"%>
+  			          </div>
+  			          <div class="col-md-8">
+  			           <%= f.text_field :title, class:  "form-control" %> 
+  			          </div>
+  			        </div>  
+  			        <div class="row">
+  			          <div class="col-md-4">
+  			            <%= f.label "Appointment Time" %>
+  			          </div>
+  			          <div class="col-md-8">
+  			          		<div class="controls controls-row" id="when" style="margin-top:5px;"></div> 
+  			          		<%= f.hidden_field :start_at %>
+  			          		<%= f.hidden_field :end_at %>
+  	                  <input type="hidden" id="apptAllDay" />
+  			          </div>
+  			        </div>
+  			        <br>
+  			      </div>
+  			    </div>
+  			  </div>
+  			  
+  			<% end %>
+      </div>
+      <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+      </div>
+  </div>
+</div> 
+
+<script type="text/javascript">
+
+  // $('#calendar').fullCalendar({
+  //     header: {
+  //         left: 'prev,next today',
+  //         center: 'title',
+  //         right: 'month,agendaWeek,agendaDay'
+  //     }
+  // });
+
+  $("#calendar").fullCalendar({
+    header: {
+      left: "prev,next today",
+      center: "title",
+      right: "month,agendaWeek,agendaDay"
+    },
+    defaultView: "month",
+    height: 500,
+    slotMinutes: 15,
+    eventSources: "/dashboards/get_events.json",
+    dragOpacity: "0.5",
+    editable: true,
+    selectable: true,
+    select: function(start, end, allDay) {
+
+          // starttime=moment(start).format('DD-MM-YYYY LT');
+          // endtime=moment(end).format('LT');
+          starttime=moment(start).format('DD-MM-YYYY LT');
+          endtime=moment(end).format('LT');
+          // alert(endtime)
+
+          var mywhen = starttime + ' - ' + endtime;
+          $('#createEventModal #availability_start_at').val(start);
+          $('#createEventModal #availability_end_at').val(end);
+          $('#createEventModal #apptAllDay').val(allDay);
+          $('#createEventModal #when').text(mywhen);
+          $('#createEventModal').modal('toggle');
+          $('#createEventModal').removeClass( "hide" );
+       }
+
+
+
+
+  });
+
+  $('#submitButton').on('click', function(e){
+          // We don't want this to act as a link so cancel the link action
+          e.preventDefault();
+
+          doSubmit();
+        });
+
+  function doSubmit(){
+    $("#createEventModal").modal('hide');
+    var service_start  = $('#availability_start_at').val();
+    var allDay  = $('#apptAllDay').val();
+    var service_end = $('#availability_end_at').val();
+    var title = $('#availability_title').val();
+    var artist_profile_id = $('#availability_artist_profile_id').val();
+    var contact_id = $("#availability_contact_id").val();
+    
+    $.ajax({
+      type: "POST",
+      url: "/availabilities",
+      data: {
+        availability: {
+          title: title,
+          start_at: service_start,
+          end_at: service_end,
+          allDay: allDay,
+          artist_profile_id: artist_profile_id,
+          contact_id: contact_id
+        }
+      },
+      success: function(data) {
+        $("#calendar").fullCalendar('renderEvent',
+        {
+          title: $('#availability_title').val(),
+          start: new Date($('#availability_start_at').val()),
+          end: new Date($('#availability_end_at').val()),
+          allDay: ($('#apptAllDay').val() == "true"),
+          artist_profile_id: $('#availability_artist_profile_id').val(),
+        },
+        true);
+        return false;
+      },
+      error: function(data) {
+        return false;
+      }
+    });
+   }
+
+// $('#calendar').fullCalendar({
+// });
+
+  // var calendar = $('#calendar').fullCalendar({
+  //     editable: true,
+  //     selectable: true,
+  //     eventSources: [{
+  //         url: '/artist_service_orders.json'
+  //     }],
+  //     //header and other values
+  //     select: function(start, end, allDay) {
+
+  //         starttime=moment(start).format('DD-MM-YYYY LT');
+  //         endtime=moment(end).format('LT');
+
+  //         var mywhen = starttime + ' - ' + endtime;
+  //         $('#createEventModal #artist_service_order_service_start').val(start);
+  //         $('#createEventModal #artist_service_order_service_end').val(end);
+  //         $('#createEventModal #apptAllDay').val(allDay);
+  //         $('#createEventModal #when').text(mywhen);
+  //         $('#createEventModal').modal('toggle');
+  //         $('#createEventModal').removeClass( "hide" );
+  //      },
+
+  //      eventClick: function(calEvent, jsEvent, view) {
+  //         var title = prompt('Event Title:', calEvent.title, { buttons: { Ok: true, Cancel: false} });
+
+  //         if (title){
+  //             calEvent.title = title;
+  //             calendar.fullCalendar('updateEvent',calEvent);
+  //         }
+		// 		}
+  //   });
+
+  // $('#submitButton').on('click', function(e){
+  //   // We don't want this to act as a link so cancel the link action
+  //   e.preventDefault();
+
+  //   doSubmit();
+  // });
+
+  // function doSubmit(){
+  //   $("#createEventModal").modal('hide');
+  //   var service_start  = $('#artist_service_order_service_start').val();
+  //   var service_end = $('#artist_service_order_service_end').val();
+  //   var so_summary = $('#artist_service_order_so_summary').val();
+  //   var description = $('#artist_service_order_description').val();
+  //   var artist_profile_id = $('#artist_service_order_artist_profile_id').val();
+  //   var new_artist_fee_cents = $('#artist_service_order_new_artist_fee_cents').val();
+  //   var gross_commission_percent =  $('#artist_service_order_gross_commission_percent').val();
+
+  //   $.ajax({
+  //     type: "POST",
+  //     url: "/artist_service_orders",
+  //     data: {
+  //       artist_service_order: {
+  //         description: description,
+  //         so_summary: so_summary,
+  //         service_start: service_start,
+  //         service_end: service_end,
+  //         artist_profile_id: artist_profile_id,
+  //         new_artist_fee_cents: new_artist_fee_cents,
+  //         gross_commission_percent: gross_commission_percent
+  //       }
+  //     },
+  //     success: function(data) {
+  //       $("#calendar").fullCalendar('renderEvent',
+	 //      {
+	 //          title: $('#artist_service_order_so_summary').val(),
+	 //          start: new Date($('#artist_service_order_service_start').val()),
+	 //          end: new Date($('#artist_service_order_service_end').val()),
+	 //          allDay: ($('#apptAllDay').val() == "true"),
+	 //      },
+	 //      true);
+  //       return false;
+  //     },
+  //     error: function(data) {
+  //       return false;
+  //     }
+  //   });
+  //  }
+
+</script>
+
+<style type="text/css">
+.modal {
+    left: 20px;
+    margin: 0;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: auto;
+    height: 400px;
+}
+
+.modal {
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    left: 50%;
+    margin-left: -280px;
+    outline: 0 none;
+    position: fixed;
+    top: 10%;
+    width: 560px;
+    z-index: 1050;
+}
+
+.fc-content .fc-view {
+  background: red;
+} 
+#calendar{
+  padding: 50px 0;
+}
+</style>

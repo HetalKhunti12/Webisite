@@ -1,0 +1,76 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Client number:</strong>
+  <%= @inquiry.client_number %>
+</p>
+
+<p>
+  <strong>Client name:</strong>
+  <%= @inquiry.client_name %>
+</p>
+
+<p>
+  <strong>Client name:</strong>
+  <%= @inquiry.client_name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @inquiry.address %>
+</p>
+
+<p>
+  <strong>Client city:</strong>
+  <%= @inquiry.client_city %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @inquiry.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @inquiry.phone %>
+</p>
+
+<p>
+  <strong>Fax:</strong>
+  <%= @inquiry.fax %>
+</p>
+
+<p>
+  <strong>Enquiry Detail:</strong>
+  <% @inquiry.inquiry_profiles.each do |ip| %>
+    <% ip.profile_services.each do |ps| %>
+      <p>Event Date: <%= ps.start_date %><p>
+      <p>Event End: <%= ps.end_date %><p>
+      <p>Event Fee: <%= ps.artist_fee %><p>
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Approve Enquiry Detail:</strong>
+  <p><input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch<%= @inquiry.id%>"  <%= @inquiry.approved ? "checked" : "" %> data-id="<%= @inquiry.id %>">
+  <label class="onoffswitch-label" for="myonoffswitch<%= @inquiry.id%>">
+      <span class="onoffswitch-inner"></span>
+      <span class="onoffswitch-switch"></span>
+  </label></p>
+</p>
+
+<%= link_to 'Edit', edit_inquiry_path(@inquiry) %> |
+<%= link_to 'Back', inquiries_path %>
+
+
+<script type="text/javascript">
+  $('.onoffswitch-checkbox').click(function() {
+    var id = $(this).data("id");
+    $.ajax({
+      type: 'GET', 
+      url:  'approved/' + ($(this).data("id")) + '/' + $("#myonoffswitch"+id).is(':checked')
+    });
+    return true;
+  });
+</script>

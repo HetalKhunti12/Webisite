@@ -1,0 +1,189 @@
+<div class="panel panel-warning" style="margin-bottom:30px">    
+  <div class="panel-heading">Finances for: <b>Artist (<%=profile_orders_form.object.p_name%>)</b></div>
+  <%= button_tag 'show',type: 'button', class: 'hide_button btn pull-right btn-sm'%>
+  <div class="panel-body hidden">
+    <div class="panel panel-warning">
+      <div class="panel-heading">Tracking Info for: <%=profile_orders_form.object.p_name%></div>
+      <%= button_tag 'show',type: 'button', class: 'hide_button btn pull-right btn-sm'%>
+      <div class="panel-body hidden"> 
+        <div class="col-md-8 col-md-offset-2">
+        <div class="row">
+          <div class="col-md-6">
+            <%= profile_orders_form.label "Artist booking number" %>
+          </div>
+          <div class="col-md-6">
+           <%= profile_orders_form.text_field :purchase_number, class:  "form-control", value: profile_orders_form.object.profile_payments.first.number if profile_orders_form.object.profile_payments.present? %> 
+          </div>
+        </div>   
+        <div class="row">
+        <div class="col-md-6">
+          <%= profile_orders_form.label :purchase_order_sent %>
+        </div>
+        <div class="col-md-6">
+          <%= render partial: "shared/date_picker", locals: {:form => profile_orders_form, :date_item=> :purchase_order_sent} %>
+        </div>
+      </div>
+        <div class="row">
+         <div class="col-md-6">
+           <%= profile_orders_form.label :artist_booking_form_returned %>
+         </div>
+         <div class="col-md-6">
+           <%= render partial: "shared/date_picker", locals: {:form => profile_orders_form, :date_item=> :artist_booking_form_returned} %>
+         </div>
+       </div>
+       <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <% if profile_orders_form.object.artist_booking_form_returned.present? %>
+              <%= link_to 'Send Reminder to artist', '#', {:class=>"btn btn-sm btn-success", disabled: true} if profile_orders_form.object.id.present? %>
+            <% else %>
+              <%= link_to 'Send Reminder to artist', email_send_reminder_artist_profile_order_path(f.object.id.to_i), {:class=>"btn btn-sm btn-success"} if profile_orders_form.object.id.present? %>
+            <% end %>
+          </div>
+          <div class="col-md-12">
+            <% tmp = profile_orders_form.object.msg %>
+            <% j = tmp.size %>
+            <% tmp = tmp.reverse%>
+            <% if tmp.size > 0 %>
+              <select class="reminder-list">
+                <% (0..tmp.size-1).each do |i| %> 
+                  <option>Reminder email was sent on date (<%= tmp[i] %>)</option>
+                  <% j = j-1 %>
+                <% end -%>
+              </select>
+            <% end %>
+          </div>
+       </div>
+       This will be remmoved eventually - after switch to new invoicing
+        <div class="row">
+         <div class="col-md-6">
+           <%= profile_orders_form.label :artist_invoice_received %>
+         </div>
+         <div class="col-md-6">
+             <%= render partial: "shared/date_picker", locals: {:form => profile_orders_form, :date_item=> :artist_invoice_received} %>
+         </div>
+       </div>
+       </div>  
+      </div>
+    </div>
+    
+    <div class="panel panel-warning" style="margin-bottom:30px">
+      <div class="panel-heading">SO Calc's for: <%=profile_orders_form.object.p_name%></div>
+      <%= button_tag 'show',type: 'button', class: 'hide_button btn pull-right btn-sm'%>
+      <div class="panel-body hidden">
+        <% so_counter = 0 %>
+        <%= profile_orders_form.fields_for :service_orders do |sof| %>
+          <% so_counter += 1 %>
+          <% if !profile_orders_form.object.old_invoicing %> 
+            <% if profile_orders_form.object.invoicing_with_gst %>
+              <% if sof.object.present? and sof.object.apply_rounding %>
+                 <div class="col-md-6 col-md-offset-3">
+                <%= render partial: "with_gst_rounded_new", locals: {sof: sof, pof:profile_orders_form, so_index:so_counter, po_index:po_counter, gst_applied:profile_orders_form.object.invoicing_with_gst, artist_old_invoicing:profile_orders_form.object.old_invoicing} %>
+              </div>
+              <% else %>
+                <div class="col-md-6 col-md-offset-3">
+                <%= render partial: "with_gst_calcs_new", locals: {sof: sof, pof:profile_orders_form, so_index:so_counter, po_index:po_counter, gst_applied:profile_orders_form.object.invoicing_with_gst, artist_old_invoicing:profile_orders_form.object.old_invoicing} %>
+              </div>
+              <% end %>
+            <% else %>
+              <% if sof.object.present? and sof.object.apply_rounding %>
+                <div class="col-md-6 col-md-offset-3">
+                  <%= render partial: "without_gst_rounded_new", locals: {sof: sof, pof:profile_orders_form, so_index:so_counter, po_index:po_counter, gst_applied:profile_orders_form.object.invoicing_with_gst, artist_old_invoicing:profile_orders_form.object.old_invoicing} %>
+                </div>
+              <% else %>
+                <div class="col-md-6 col-md-offset-3">
+                  <%= render partial: "without_gst_calcs_new", locals: {sof: sof, pof:profile_orders_form, so_index:so_counter, po_index:po_counter, gst_applied:profile_orders_form.object.invoicing_with_gst, artist_old_invoicing:profile_orders_form.object.old_invoicing} %>
+                </div>
+              <% end %>
+            <% end %>
+          <% else %>
+            <% if sof.object.present? and sof.object.apply_rounding %>
+              <div class="col-md-6 col-md-offset-3">
+                <%= render partial: "old_without_gst_rounded_calcs", locals: {sof: sof, pof:profile_orders_form, so_index:so_counter, po_index:po_counter, gst_applied:profile_orders_form.object.invoicing_with_gst, artist_old_invoicing:profile_orders_form.object.old_invoicing} %>
+              </div>
+            <% else %>
+              <div class="col-md-6 col-md-offset-3">
+                <%= render partial: "old_without_gst_not_rounded_calcs", locals: {sof: sof, pof:profile_orders_form, so_index:so_counter, po_index:po_counter, gst_applied:profile_orders_form.object.invoicing_with_gst, artist_old_invoicing:profile_orders_form.object.old_invoicing} %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <% if @booking.profile_orders[po_counter-1].expenses.count > 0 %>    
+      <div class="panel panel-warning" style="margin-bottom:30px">
+        <div class="panel-heading">Expense Calc's for: <%=profile_orders_form.object.p_name%></div>
+        <%= button_tag 'show',type: 'button', class: 'hide_button btn pull-right btn-sm'%>
+        <div class="panel-body hidden">
+          <div class="col-md-12">
+            <%= render partial: "expenses/po_expense_summary", locals: {f:f, pof:profile_orders_form, po_index:po_counter, profile_order:@booking.profile_orders[po_counter-1]} %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      No expenses for <%=profile_orders_form.object.p_name%>
+    <% end %>
+    
+    <% if @booking.profile_orders[po_counter-1].refunds.count > 0 %>    
+      <div class="panel panel-warning" style="margin-bottom:30px">
+        <div class="panel-heading">Refund Calc's for: <%=profile_orders_form.object.p_name%></div>
+        <%= button_tag 'show',type: 'button', class: 'hide_button btn pull-right btn-sm'%>
+        <div class="panel-body hidden">
+          <div class="col-md-12">
+            <%= render partial: "refunds/po_refund_summary", locals: {f:f, pof:profile_orders_form, po_index:po_counter, profile_order:@booking.profile_orders[po_counter-1]} %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
+    <div class="panel panel-warning" style="margin-bottom:30px">
+      <div class="panel-heading">Combined Total for: <%=profile_orders_form.object.p_name%></div>
+      <%= button_tag 'show',type: 'button', class: 'hide_button btn pull-right btn-sm'%>
+      <div class="panel-body hidden">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="row">
+            <div class="col-md-6">
+              Commission Adjustment ($net) (temporary for rounding up)
+            </div>
+            <div class="col-md-6" style="height: 40px;">
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <%= profile_orders_form.text_field :commission_adjustment,:data => { :cell => get_tot_data_id(po_counter, '0') }, :class => 'form-control', :value => (number_with_precision(profile_orders_form.object.commission_adjustment, :precision => 2) || 0) %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <% if profile_orders_form.object.commission_adjustment.present? %>
+                <%= render partial: "payment_summary_for_po_adjust", locals: {f: f, po_index:po_counter, so_count: so_counter} %>
+              <% else %>
+                <%= render partial: "payment_summary_for_po", locals: {f: f, po_index:po_counter, so_count: so_counter} %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-warning" style="margin-bottom:30px">
+      <div class="panel-heading">Invoicing and Payments : <%= profile_orders_form.object.p_name%> (GST Status = <%= profile_orders_form.object.invoicing_with_gst%>)</div>
+      <%= button_tag 'show',type: 'button', class: 'hide_button btn pull-right btn-sm'%>
+      <div class="panel-body hidden">
+        <div class="col-md-12">
+          <div class="row panel_profile_orders">
+            <%= hidden_field_tag :invoicing_with_gst, profile_orders_form.object.invoicing_with_gst%>
+            <%= hidden_field_tag :booking_number, @booking.number%>
+            <%= hidden_field_tag :pay_by, get_artist_pay_date(profile_orders_form.object)%>
+            <%= hidden_field_tag :po_index, po_counter %>
+            <%= hidden_field_tag :po_id, profile_orders_form.object.id, class: "profile_order_id" %>
+            <div class="col-md-12">
+              <%= profile_orders_form.fields_for :profile_payments do |pp| %>
+                <% read_only = true unless pp.object.invoice_paid_date.blank? %>
+                <%= render partial: "profile_payments/profile_payments_section", locals: {:f => pp, :class_name => artist_payment_class(po_counter),payment_index: increment_by_one(pp.index), :read_only => read_only} %>
+                
+              <% end %>
+              <%= link_to_add_invoice_fields "Add New Profile Payment", profile_orders_form, :profile_payments %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

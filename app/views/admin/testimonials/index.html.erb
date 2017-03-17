@@ -1,0 +1,36 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Listing Testimonials</h1>
+    </div>
+    <div class="col-md-4 text-right">
+      <h1><%= link_to "New", new_admin_testimonial_path, class: "btn btn-primary" %></h1>
+    </div>
+  </div>
+
+  <table id="myTable" class="table table-striped table-hover table-responsive">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @testimonials.each do |testimonial| %>
+        <tr>
+          <td><%= image_tag testimonial.testimonial_image.url(:thumb) %></td>
+          <td><%= testimonial.title %></td>
+          <td><%= testimonial.description %></td>
+          <td><%= link_to 'Edit', edit_admin_testimonial_path(testimonial) %></td>
+          <td><%= link_to 'Destroy',[:admin, testimonial], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+</div>

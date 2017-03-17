@@ -1,0 +1,183 @@
+<div class="inner-page clearfix">
+  <div class="container">
+    <div class="inner-ttl">Dashboards</div>
+    <div class="chart-block">
+        <div class="latest-enq">Latest Enquiries</div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="inr-ttl">Enquiry</div>
+            <!-- <div class="chart-img"> -->
+              <div id="cont1" ></div>
+            <!-- </div> -->
+          </div> 
+          <div class="col-md-6">
+            <div class="table-responsive table-first">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>NO</th>
+                    <th>NAME</th>
+                    <th>COMPANY</th>
+                    <th>DATE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if @enquiries.present? %>
+                    <% i = 1 %>
+                    <% @enquiries.each do |enq| %>
+                      <tr>
+                        <th scope="row"><%= i %></th>
+                        <td><%= enq.try(:client_name) %></td>
+                        <td><%= enq.try(:client_company) %></td>
+                        <td><%= enq.try(:created_at).strftime("%d/%m/%Y") %></td>
+                      </tr>
+                      <% i += 1 %>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="chart-block">
+      <div class="latest-enq pink">Latest Booking</div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="inr-ttl">Booking</div>
+            <div id="cont2"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="table-responsive table-first">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>NO</th>
+                  <th>CUST-NAME</th>
+                  <th>COMPANY</th>
+                  <th>DATE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @bookings.present? %>
+                  <% i = 1 %>
+                  <% @bookings.each do |book| %>
+                    <tr>
+                      <th scope="row"><%= i %></th>
+                      <td><%= name = book.customer_firstname.present? ? book.customer_firstname : '-' %></td>
+                      <td><%= company = book.customer_company_name.present? ? book.customer_company_name : '-' %></td>
+                      <td><%= city = book.profile_orders.first.service_orders.first.created_at.present? ? book.created_at.strftime("%d/%m/%Y") : '-' %></td>
+                    </tr>
+                    <% i += 1 %>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-block">
+      <div class="latest-enq">Latest Profiles</div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="inr-ttl">Profile</div>
+            <div id="cont3"></div>
+        </div>
+        <div class="col-md-6">
+          <div class="table-responsive table-first">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>NO</th>
+                  <th>NAME</th>
+                  <th>STATE</th>
+                  <th>DATE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @profiles.present? %>
+                  <% i = 1 %>
+                  <% @profiles.each do |profile| %>
+                    <tr>
+                      <th scope="row"><%= i %></th>
+                      <td><%= name = profile.title.present? ? profile.title : '-' %></td>
+                      <td><%= company = profile.state.present? ? profile.state : '-' %></td>
+                      <td><%= city = profile.created_at.present? ? profile.created_at.strftime("%d/%m/%Y") : '-' %></td>
+                    </tr>
+                    <% i += 1 %>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+$(function () { 
+  var myChart = Highcharts.chart('cont1', {
+    chart: {
+      type: 'column'
+    },
+    credits: {
+      enabled: false
+    },
+    title: {
+      text: ''
+    },
+    yAxis: {
+      title: {
+          text: 'Enquiries'
+      }
+    },
+    series: <%= raw @enquiry_series.to_json %>
+  });
+
+
+    var myChart = Highcharts.chart('cont2', {
+        chart: {
+            type: 'column'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+            text: ''
+        },
+        yAxis: {
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: 'Booking'
+            }
+        },
+        series: <%= raw @comm_series.to_json %>
+    });
+
+
+    var myChart = Highcharts.chart('cont3', {
+        chart: {
+            type: 'column'
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+            text: ''
+        },
+        yAxis: {
+            allowDecimals: false,
+            min: 0,
+            title: {
+                text: 'Profiles'
+            }
+        },
+        series: <%= raw @profile_series.to_json %>
+    });
+});
+</script>

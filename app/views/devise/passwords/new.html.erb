@@ -1,0 +1,33 @@
+<div class="col-md-4">
+</div>
+
+<div class="col-md-4">
+  <div class="card">
+    <div class="">
+      <%= form_for(@contact, url: password_path(@contact), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
+      
+        <div class="text-xs-center">
+            <h1 class="title">Forgot your password?</h1>
+            
+        </div>
+
+      
+        <div class="input-container">
+          <%= f.text_field :work_email, label: false, class: "forgot" %>
+          <label for="contact_work_email">Your email</label>
+          <div class="bar"></div>
+        </div>
+
+        <div class="button-container">
+          <span><%= f.submit "Send me reset password instructions",class: "btn reset-btn" %></span>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+</div>
+

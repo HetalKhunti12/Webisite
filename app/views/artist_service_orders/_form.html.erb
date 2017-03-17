@@ -1,0 +1,41 @@
+<div class="inner-page clearfix">
+  <div class="container">
+    <%= form_for(@artist_service_order) do |f| %>
+      <div class="inner-ttl">Service Order </div>
+      <div class="form-block">
+        <div class="form-padding so-section">
+          <div class="row">
+          <div class="col-md-6">
+            <div class="text-field">
+              <%= f.label :artist_profile_id %>
+              <%= f.select :artist_profile_id, options_for_select(current_contact.artist_profiles.map{|s|[s.title, s.id]}, f.object.artist_profile_id),{include_blank: "Select Profile"}, class: "form-control" %>
+            </div>
+          </div>
+          </div>
+          
+            <%= render partial: "artist_service_orders/service_orders_section", locals: {sof: f, po_index:1, gross_commission:20} %>
+          
+
+        </div>
+
+        <div class="cust_detail_btn">
+          <div class="text-center">
+            <%= f.submit "Save & Close", class: "send-btn"%>&nbsp;
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+</br>
+
+<script type="text/javascript">       
+  $(function () {
+    $('.datepick').each(function(){
+      $(this).datetimepicker({
+        sideBySide: true
+      });
+    });
+  });
+</script>

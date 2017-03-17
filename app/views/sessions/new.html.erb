@@ -1,0 +1,41 @@
+
+<div class="col-md-4">
+</div>
+
+<div class="col-md-4">
+
+  <div class="card">
+    <h1 class="title">Login</h1>
+    <%= simple_form_for(@contact, :url => contact_session_path ) do |f| %>
+      
+      <div class="input-container">
+        <%= f.input :work_email, label: false, required: true, class: "string email required" %>
+        <label for="contact_work_email">Your email</label>
+        <div class="bar"></div>
+      </div>
+      
+      <div class="input-container">
+        <%= f.input :encrypted_password, label: false, required: true, class: "password required" %>
+        <label for="contact_encrypted_password">Password</label>
+        <div class="bar"></div>
+      </div>
+      
+      <div class="button-container">
+        <span><%= f.button :submit, "Log In", class: "btn btn-default" %></span>
+      </div>
+      
+
+      <div class="footer"><%= link_to "Forgot your password?", new_password_path(@contact) %></div>
+
+    <% end %>
+  </div>
+</div>
+</div>
+
+<div class="col-md-4">
+</div>
+
+
+
+
+

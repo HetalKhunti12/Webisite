@@ -1,0 +1,90 @@
+<div class="row booking_review">
+  <div class="col-md-12">
+    <p>
+      <strong>First Name:</strong>
+      <%= @contact.first_name %>
+    </p>
+
+    <p>
+      <strong> Last Name:</strong>
+      <%= @contact.last_name %>
+    </p>
+
+    <p>
+      <strong>Category:</strong>
+      <%= @contact.category %>
+    </p>
+
+    <p>
+      <strong>Email:</strong>
+      <%= @contact.work_email %>
+    </p>
+  </div>
+</div>
+ 
+
+<!-- <div class="row">
+  <div class="small-2 large-2 columns">
+    <%#= imdb_style_rating_for @artist_profile, current_user%>
+  </div>
+  <br>
+  <div class="small-2 large-4 columns">
+    <%# if current_user %>
+      Visual Effects: <%#= rating_for @artist_profile, "visual_effects", disable_after_rate: true, imdb_avg: true %>
+      <br>
+      Visual Effects: <%#= rating_for_user @artist_profile, current_user, "visual_effects" %>
+      <br>
+      Original Score: <%#= rating_for @artist_profile, "original_score", target: '#nrea', targetScore: '#nrea', single: true %>
+      <br>
+      Director: <%#= rating_for @artist_profile, "original_score" %>
+      <br>
+      Custome Design: <%#= rating_for @artist_profile, "custome_design" %>
+    <%# end %>
+  </div>
+  <div id="rea"></div>
+  <div id="nrea"></div>
+</div></br></br> -->
+
+
+<div class="row booking_review">
+  <h4>Reviews</h4>
+  <div class="col-md-4">
+    <% @reviews.each do |review| %>
+      <span class="review_comment"><%= review.title%></span></br>
+      <span class="review_context"><%= review.comment%></span></br></br>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+      <%= form_for(:review, url: :reviews ) do |f| %>
+
+            <%= f.hidden_field :contact_id, value: @contact.id %>
+              
+            <div class="field">
+              <%= f.label :title %><br>
+              <%= f.text_field :title %>
+            </div></br>
+
+            <div class="field">
+              <%= f.label :comment %><br>
+              <%= f.text_area :comment %>
+            </div></br>
+
+            <div class="actions">
+              <%= f.submit id:"comment" %>
+            </div>
+      <% end %>
+  </div>
+</div>
+
+<style type="text/css">
+.review_comment{
+  font-size: 18px;
+  font-weight: 600;
+}
+.review_context{
+  text-align: justify;
+}
+.booking_review{
+  padding: 50px 0;
+}
+</style>

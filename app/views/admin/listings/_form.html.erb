@@ -1,0 +1,19 @@
+<%= simple_form_for(@listing) do |f| %>
+  
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <div class="col-md-8">
+      <%= f.input :objectTitle, label: "*Title" %>
+      <%= f.input :objectLocation1, label: "*SUBURB/TOWN" %>
+      <%= f.input :objectLocation2, label: "*CITY" %>
+      <%= f.input :objectCountry, label: "*COUNTRY" %>
+      <%= f.input :objectPrimaryCategoryID, label: "*PRIMARY CATEGORY" %>
+      <%= f.input :objectRootCategoryId, label: "" %>
+      <%= f.input :objectDescription1, label: "*SHORT DESCRIPTION" %>
+      <%= f.input :objectDescription2, label: "*LONG DESCRIPTION" %>
+      <%= f.input :objectKeywords, label: "*KEYWORDS" %>
+      <%= f.input :objectPricing, label: "*PRICING" %>
+    </div>
+  </div>
+
+<% end %>

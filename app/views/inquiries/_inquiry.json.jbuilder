@@ -1,0 +1,2 @@
+json.extract! inquiry, :id, :client_number, :client_name, :client_name, :address, :client_city, :email, :phone, :fax, :newsletter, :special_client, :created_at, :updated_at
+json.url inquiry_url(inquiry, format: :json)

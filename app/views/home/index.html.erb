@@ -1,0 +1,184 @@
+<!-- SEARCH SECTION -->
+<div class="search_sect bg_pink">
+  <div class="search_container container ">
+    <div class="fetured-title pink bold">
+      <div class="text-uppercase white"> What are you looking for? </div>
+    </div>
+
+    <%= form_tag search_home_index_path, :method => 'get', id: "register_form" do %>
+      <div class="col-md-12 no-padding home_search">
+        <div class="col-md-2 col-sm-2 search-text">
+          <%= select_tag :category_id, options_from_collection_for_select(@categories, :id, :name), :prompt => "Select Category" , class: "form-control" %>
+        </div>
+
+        <div class="col-md-2 col-sm-2 search-text">
+          <%= select_tag :sub_category_id,"", :prompt => "Select Sub Category" , class: "form-control", id: "sub_categories" %>
+        </div>
+
+        <div class="col-md-2 col-sm-2 search-text key">
+          <%= text_field_tag :keywords, '', class: "form-control", placeholder: "Keywords:"%>
+        </div>
+
+        <div class="col-md-2 col-sm-2 search-text">
+          <%= select_tag :location2, options_for_select(Category::CITYES), :prompt => "Select Location", class: "form-control" %>
+        </div>
+        <div class="col-md-2 col-sm-2 search-text dt">
+          <input type="text" class="form-control" name="date" id="datepick" placeholder="Date & Time:" />
+        </div>
+        <div class="col-md-2 col-sm-2 search-text">
+          <%= select_tag :price, options_for_select(ArtistProfile::PRICING), :prompt => "Select Budget", class: "form-control" %>
+        </div>
+        <div class="col-md-2 col-sm-2 search-text key">
+          <%= submit_tag "Search", :name => nil, class: "btn-search products_search" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<!--MOST POPULAR SECTION-->
+<div class="popular_sect clearfix">
+  <div class="fetured-title pink bold">
+    <div class="text-uppercase white"> most popular categories & new listings </div>
+  </div>
+  
+  <div class="clearfix">
+    <div class="col-md-2 col-sm-4 popular-block "> <a href="#">
+      <div class="popular-img popular_odd"> 
+        <% if @popular_category[0].present? %>
+          <%= link_to category_artist_profiles_category_path(@popular_category[0].id) do %> <%= image_tag @popular_category[0].image.url%> 
+          <div class="popular-text"><%= @popular_category[0].name %></div><% end %>
+        <% end %>
+      </div>
+      </a> </div>
+    <div class="col-md-4 col-sm-8 popular-block"> <a href="#">
+      <div class="popular-img  popular_even"> 
+        <% if @popular_category[1].present? %>
+          <%= link_to category_artist_profiles_category_path(@popular_category[1].id) do %> <%= image_tag @popular_category[1].image.url%> 
+          <div class="popular-text"><%= @popular_category[1].name %></div><% end %>
+        <% end %>
+      </div>
+      </a> </div>
+    <div class="col-md-4 col-sm-8 popular-block"> <a href="#">
+      <div class="popular-img popular_even"> 
+        <% if @popular_category[2].present? %>
+          <%= link_to category_artist_profiles_category_path(@popular_category[2].id) do %> <%= image_tag @popular_category[2].image.url%> 
+          <div class="popular-text"><%= @popular_category[2].name %></div><% end %>
+        <% end %>
+      </div>
+      </a> </div>
+    <div class="col-md-2 col-sm-4 popular-block"> <a href="#">
+      <div class="popular-img popular_odd">
+        <% if @popular_category[3].present? %>
+          <%= link_to category_artist_profiles_category_path(@popular_category[3].id) do %>  <%= image_tag @popular_category[3].image.url%> 
+          <div class="popular-text"><%= @popular_category[3].name %></div><% end %>
+        <% end %>
+      </div>
+      </a> </div>
+  </div>
+  <div class="clearfix">
+    <% @popular_categories1.each do |cat|%>
+      <div class="col-md-2 col-sm-4 popular-block"> 
+        <a href="#">
+          <div class="popular-img popular-bottom"> <%= link_to category_artist_profiles_category_path(cat.id) do %><%= image_tag cat.image.url %> 
+            <div class="popular-text"><%= cat.name %></div><% end %>
+          </div>
+        </a>
+      </div> 
+    <% end %>
+  </div>
+  <div class="text-center mt40"> 
+    <%= link_to "VIEW TOP 100 MOST POPULAR CATEGORIES", categories_path, class: "view-more" %>
+    &nbsp;
+    <%= link_to "VIEW TOP 100 NEW LISTINGS", top_artist_profiles_artist_profiles_path, class: "catogory-btn" %>
+  </div>
+</div>
+
+<!-- LOOK FOR SECTION -->
+<div class="look_sect bg_pink">
+  <div class="container">
+    <div class="big-text white"> Over thousands, entertainers and event services for hire </div>
+  </div>
+</div>
+
+<!--FETIRED ARTISTS SECTION-->
+<div class="fetured-artists clearfix">
+  <div class="fetured-title white"> FEATURED ARTIST <span>Just some words about my career</span> </div>
+  <% if @featured_artist.present? %>
+    <% @count = 1 %>
+    <% @featured_artist.each_slice(4) do |artist| %>
+      <% artist.each do|profile| %>
+        <div class="col-md-3 col-sm-3 artists-block"> 
+          <div class="artists-img"> 
+            <% if profile.profile_images.present? %>
+              <%= link_to artist_profile_details_artist_profile_path(profile.slug) do %><%= image_tag profile.profile_images.first.image.url %> <% end %>
+            <% else %>
+              <%= link_to artist_profile_details_artist_profile_path(profile.slug) do %><%= "Image" %> <% end %>
+            <% end %>
+          </div>
+          <div class="pp-text">
+            <%= link_to artist_profile_details_artist_profile_path(profile.slug) do %>
+              <%= profile.title %>
+            <% end %>
+          </div>
+        </div>
+        <% @count += 1 %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <div class="text-center mt40"> <%= link_to "VIEW MORE CELEBRITIES", top_artist_profiles_artist_profiles_path, class: "catogory-btn" %></div>
+</div>
+
+<!--TWO COLUMN TEXT SECTION-->
+<div class="bg_pink welcome_bg_sect">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 white">
+        <div class="main-text">Australia's leading entertainment agency and directory</div>
+        <p>&nbsp;</p>
+        <p>Welcome to EntertainOz, Australia's premier entertainment booking agency, directory and speakers bureau! Catering for every budget and every occasion, we have an amazing variety of entertainers for hire including jazz, cover and tribute bands, comedians,  DJs,  speakerts,  magicians, close up magicians, celebrities, clowns, dancers,  illusionists,  opera singers,  acrobats and much,  much more!</p>
+
+<p>Lorem ipsum is dummy text content for use in dummy text orem ipsum is dummy text content for use in dummy textorem ipsum is dummy text content for use in dummy textorem ipsum is dummy text content for use in dummy textorem ipsum is dummy text content for use in dummy textorem ipsum is dummy text content for use in dummy textorem ipsum is dummy text content.</p>
+        <p>&nbsp;</p>
+      </div>
+      <div class="col-md-6 col-sm-6 white">
+        <div class="main-text">You can book anything from corporate speakers to cover bands</div>
+        <p>&nbsp;</p>
+        <p>Check out our sensational selection of Australia and Melbourne cover bands and musicians for hire or laugh out loud with Australia's top male and female stand up comedians. Corporate entertainment is our speciality and our professional speakers' bureau includes only the very finest inspirational and motivational conference speakers in Adelaide, Brisbane, Melbourne and Sydney. We also have a marvellous range of wedding entertainment including wedding DJ's, compeers & MCs and party bands from Melbourne, Sydney, Adelaide, Brisbane and Perth. Book online now!</p>
+
+<p>We make entertainment hire in Perth and across Australia easy, because we've got all of the options available in one place. With our website you can browse every type of performer you can imagine, including some you've probably never ever thought of. Once you've decided, it's straightforward to book the chosen entertainment with an uncomplicated click of a button.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">       
+  $(function () {
+    $('#datepick').each(function(){
+      $(this).datetimepicker({
+        // sideBySide: true
+      });
+    });
+  });
+
+  $("#category_id").change(function() {
+    if($(this).val() != ""){
+      $.ajax({
+        type: "GET",
+        url:  '/home/'+ $(this).val()+'/sub_categories',
+        dataType: "script"
+      });
+    }
+  });
+
+  $(document).ready(function () {
+    $("#register_form").submit(function(e){
+      if($("#category_id").val() == "" && $("#sub_categories").val() == "" && $("#keywords").val() == "" && $("#location2").val() == "" && $("#datepick").val() == "" && $("#price").val() == ""){
+        alert("Select Atleast one option for search")
+        return false;
+      }
+    });
+  })
+</script>

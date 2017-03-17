@@ -1,0 +1,189 @@
+<div class="sect">   
+  <div class="inner-page clearfix">
+    <div class="container">
+      <div class="fetured-title pink bold"><div class="text-uppercase Black">PAYMENT SECTION</div></div>
+      <div class="packages">
+        <div class="col-md-12">
+          <ul class="progressbar">
+            <li>Select a Package</li>
+            <li>Account Details</li>
+            <li class="active">Payment</li>
+            <li>Confirmation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="form-section js-form-section form-section-inline-loading">
+      <%= form_for(@contact_payment, url: save_contact_path) do |f| %>
+
+        <fieldset class="section-payment section-payment-directdebit">
+          <div class="form">
+
+            <p>Payment Confirmation</p>
+            <h4 class="header form-section_header pink bold">Here's your membership package summary:</h4>
+
+            <table class="table_payment-plan">
+              <tbody>
+                <tr>
+                  <th colspan="2" class="table-header table-header-payments">Ongoing payment</th>
+                </tr>
+                <tr>
+                  <td>Your first direct debit</td>
+                  <td>$<%= @package.price %></td>
+                </tr>
+                <tr>
+                  <td>Ongoing fortnightly direct debit</td>
+                  <td>$<%= @package.price %></td>
+                </tr>
+                <tr>
+                  <% if session[:contact_type] == "service" %>
+                    <td class="payment-total">Total minimum contract cost</td>
+                    <td class="payment-total">$<%= @package.price %></td>
+                  <% else %>
+                    <td class="payment-total">Total minimum contract cost</td>
+                    <td class="payment-total">$<%= @package.price.to_i*12 %></td>
+                  <% end %>
+                </tr>
+                
+              </tbody>
+            </table>
+            <p>&nbsp;</p>
+            <fieldset id="recurring-payment-options" class="payment-form payment-recurring form-section_sub">
+                <p>How would you like to setup your ongoing payments?</p>
+                <div class="float-container">
+                  <!-- <label for="payment-option-CC" class="label label-wrap">
+                    <input type="radio" name="payment-option" id="payment-option-CC" value="payment-option-CC" data-payment-type="CC" data-requires-validation="false" checked="checked"> -->
+                    <%#= f.radio_button :payment_type, "pay_pall" %>
+                      
+                  </label>
+                  <label for="payment-option-DD" class="label label-wrap">
+                    <!-- <input type="radio" name="payment-option" id="payment-option-DD" value="payment-option-DD" data-payment-type="DD" data-requires-validation="true"> -->
+                    <%= f.radio_button :payment_type, "eway" %>
+                      Eway
+                  </label>
+                </div>
+            </fieldset>
+            <legend></legend>
+            <fieldset class="form-section_sub section-payment section-payment-credit_or_debit_card">
+              <p class="form-note">All form fields are required unless otherwise indicated</p>
+              <h4 class="form-section_header">You've chosen to pay your fortnightly membership fee by debit/credit card. Please note that by choosing credit card for your ongoing payments there will be a $0.50 surcharge per fortnightly direct debit.</h4>
+              <div class="personal-dtl">
+                <div class="row ">
+                    <%= f.hidden_field :amount, value: @package.price %>
+                    <%= f.fields_for :card do |c| %>
+                        <div class="col-md-6 col-sm-6">
+                          <li>
+                            <div class="text-field">
+                              <%= c.label :first_name %>
+                              <%= c.text_field :first_name, class: "form-field disable-empty-values" %>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="field">
+                              <%= c.label :last_name %>
+                              <%= c.text_field :last_name, class: "form-field disable-empty-values" %>
+                            </div>
+                          </li>
+
+                          <li class="card-type-field">
+                            <!-- <div class="select-wrapper" id="dd-cc-card-type"> -->
+                              <div class="field">
+                                <%= c.label :card_type %>
+                                <%= c.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], class: "form-field card", id: "cc-card-type" %>
+                              </div>
+                             <!-- </div> -->
+                          </li>
+
+                            
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                          <li class="card-number-field">
+                            <div class="field">
+                              <%= c.label :card_number %>
+                              <%= c.text_field :card_number, class: "form-field" %>
+                            </div>
+                            <p class="note instruction"></p>  
+                          </li>
+                            
+                          
+                          <li>
+                            <div class="field">
+                              <%= c.label :card_verification, "Card Verification Value (CVV)" %>
+                              <%= c.text_field :card_verification, class: "form-field" %>
+                            </div>
+                              <p class="note instruction">Three or four digit number found on the back or front of your card</p>  
+                          </li>
+
+                            <li>
+
+                              <div class="field">
+                                <%= c.label :card_expires_on %>
+                                <%= c.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), add_month_numbers: true, class: "form-field" %>
+                              </div>
+                          </li>
+                        </div>
+                    <% end %>
+                  <%# end %>
+                </div>
+              </div></br>
+              <p><strong>Important Information</strong>: I request and authorise Fitness First Australia Pty Limited User no: (<a href="" target="_blank">View Club Direct Debit ID number</a>) to arrange through its own financial institution, for any amounts properly payable by me to the company to be debited or charged through the bulk electronic clearing system from an account held at the financial institution identified above and paid to the company, subject to the terms and conditions of the DDR Service agreement.&nbsp; The company will not deduct more than $500 at any one time without prior notice to me.</p>
+
+            </fieldset>
+
+            <legend></legend>    
+            <div id="paynow-payment-options" class="form-section_sub payment_type">
+                <p>Your are required to make payment of your one off fees today.</p> 
+                <div id="paynow-card-option" class="form-row" style="">
+                  <label class="label label-wrap">
+                    <input type="radio" name="payment-oneoff" id="payment-same" checked="checked" value="payment-same"> Pay my one off fees using the same debit / credit card I provided above
+                  </label>
+                  <label class="label label-wrap"> 
+                    <input type="radio" name="payment-oneoff" id="payment-different" value="payment-different"> Pay my one off fees using a different card
+                  </label>
+                </div>
+            </div>
+        </fieldset>
+        <legend></legend>
+        <fieldset>
+          <div class="form join-step_final">
+            <div class="payment-section payment-terms form-section_sub">
+              <h4 class="header form-section_header">Terms &amp; Conditions</h4>
+              <p>I acknowledge that I have read and agree to:</p>
+              <ul>
+                <li class="float-container radio-checkbox-error" id="accept-termsconditions">
+                  <label class="radio-check" for="accept-terms">
+                    <input class="form-field"  name="accept-terms" required="1" type="checkbox" value="true">
+                    <span>The <a href="">membership terms and conditions</a></span>
+                  </label>
+                </li>
+
+                <li class="float-container radio-checkbox-error" id="accept-minimumterms">
+                  <label class="radio-check" for="membership-arrangement">
+                    <input class="form-field"  name="membership-arrangement"  type="checkbox" value="true">
+                    <span>I understand the <a href="" target="_blank">minimum term of my membership and the ongoing membership arrangement</a>.</span>
+                  </label>
+                </li>
+              </ul>
+
+              <div class="terms">
+                <h4 class="header form-section_header">* IMPORTANT INFORMATION:</h4>
+                <p>Once you are on the payment screen, please do not refresh your browser, or press the back button until processing has completed.</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="button-wrapper" id="join-us-button-wrapper" style="">
+              <div class="form-actions ">
+                <%= f.submit "Send Now", class: "btn-default", id: "join-us"%> 
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>
+

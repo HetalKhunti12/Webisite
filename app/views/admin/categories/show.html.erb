@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Categoryname:</strong>
+  <%= @category.categoryName %>
+</p>
+
+<p>
+  <strong>Categoryparentid:</strong>
+  <%= @category.categoryParentId %>
+</p>
+
+<p>
+  <strong>Categorydescription:</strong>
+  <%= @category.categoryDescription %>
+</p>
+
+<p>
+  <strong>Categorychildren:</strong>
+  <%= @category.categoryChildren %>
+</p>
+
+<p>
+  <strong>Categorysectionid:</strong>
+  <%= @category.categorySectionId %>
+</p>
+
+<p>
+  <strong>Categorydepth:</strong>
+  <%= @category.categoryDepth %>
+</p>
+
+<p>
+  <strong>Categorysequence:</strong>
+  <%= @category.categorySequence %>
+</p>
+
+<p>
+  <strong>Categorysequencealpha:</strong>
+  <%= @category.categorySequenceAlpha %>
+</p>
+
+<p>
+  <strong>Categorylineage:</strong>
+  <%= @category.categoryLineage %>
+</p>
+
+<p>
+  <strong>Url path:</strong>
+  <%= @category.url_path %>
+</p>
+
+<p>
+  <strong>Categoryintroduction:</strong>
+  <%= @category.categoryIntroduction %>
+</p>
+
+<p>
+  <strong>Categorybyline:</strong>
+  <%= @category.CategoryByline %>
+</p>
+
+<p>
+  <strong>Categorytitle:</strong>
+  <%= @category.CategoryTitle %>
+</p>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>

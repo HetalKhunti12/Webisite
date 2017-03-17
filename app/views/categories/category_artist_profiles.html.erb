@@ -1,0 +1,82 @@
+<!-- SEARCH SECTION -->
+<div class="container">
+  <div class="fetured-title pink bold">
+    <div class="text-uppercase Black"> 
+      <%= Category.find(params[:id]).try(:name) %> 
+    </div>
+  </div>
+  <div class="inner_search_sect bg_pink">
+    <div class="col-md-7 center-block no-padding">
+      <%= form_tag category_artist_profiles_category_path, :method => 'get', :id => "products_search" do %>
+        <%= hidden_field_tag :sub_category_id, params[:id] %>
+        <div class="col-md-9 col-sm-9 search-text key">
+          <%= text_field_tag :keywords, '', class: "form-control", placeholder: "Keywords:"%>
+        </div>
+        <div class="col-md-3 col-sm-3 search-text key">
+          <%= submit_tag "Search", :name => nil, class: "btn-search" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="entertainers_sect clearfix">
+  <div class="container">
+    <div class="profile_city">
+      <span><%= link_to "All", ""%> (<%= @category_artist_profiles.count %>)</span>
+      <% Category::CITYES.each do |city| %>
+        <span><%= link_to city, category_artist_profiles_category_path(params[:id],:location => city)%> (<%= @category_artist_profiles.where("location2 =?", city).count %>)</span>
+      <% end %>
+      <span><%= link_to "Others", category_artist_profiles_category_path(:country => "Other") %>  (<%= @category_artist_profiles.where("country NOT IN (?) or location2 NOT IN (?)", "AU", Category::CITYES).count %>)</span>
+    </div>
+    
+    <% if @category_artist_profiles.present? %>
+      <% @category_artist_profiles.each_slice(5) do |artist_profile|%>
+        <div class="ent-row">
+          <% artist_profile.each do|profile| %>
+            <div class="col-md-3 col-sm-4 popular-block">
+              <div class="artist_pro">
+                <div class="artist-block">
+                  <%= link_to artist_profile_details_artist_profile_path(profile.slug) do %>
+                    <div class="popular-img artist_prof_categories"> 
+                      <% if profile.profile_images.present? %>
+                        <%= image_tag profile.profile_images.first.image.url %>
+                      <% end %>
+                      <div class="artist_pro_title"><%= profile.title %></br>
+                        <span class="artist_pro_category"><%= Category.find(params[:id]).try(:name) %></span>
+                      </div>
+                    </div>
+                  <% end %>
+                  <div class="artist_pro_description">
+                    <div class="country-type">
+                      <%= profile.try(:location2) %> , <%= profile.try(:state) %> , <%= profile.try(:country) %></br>
+                      <% if profile.country_wide == true %>
+                        <%= "Australia-wide" %>
+                      <% end %>
+                    </div>
+                    <div class="star-block">
+                      <%= rating_for profile, "original_score", stars: 5,disable_after_rate: true, target: '#abc', targetScore: '#abc' %>
+                      <div id="abc"></div>
+                    </div>
+                  </div> 
+                  <div class="reg-block">
+                    <% so_id = profile.artist_service_orders.first.id if profile.artist_service_orders.present?  %>
+                    <%= link_to "Request a Quote", artist_profile_inquiry_category_path(profile.slug, service_order_id: so_id), data: {remote: true, type: "script"}, class: "btn btn-register" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  
+  </div>
+</div>
+
+<%= render 'dialog' %>
+
+<script type="text/javascript">
+$("#inquiry_client_number").mask("9999 999 999");
+  $("#inquiry_phone").mask("(99) 9999 9999");
+</script>
+

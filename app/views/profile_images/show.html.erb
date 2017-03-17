@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @profile_image.image %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @profile_image.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @profile_image.description %>
+</p>
+
+<p>
+  <strong>Artist profile:</strong>
+  <%= @profile_image.artist_profile_id %>
+</p>
+
+<%= link_to 'Edit', edit_profile_image_path(@profile_image) %> |
+<%= link_to 'Back', profile_images_path %>

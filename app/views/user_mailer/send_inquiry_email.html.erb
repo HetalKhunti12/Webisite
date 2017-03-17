@@ -1,0 +1,33 @@
+<p> Hello <%= @contact.first_name %> </p>
+
+<p> New Inquiry </p>
+
+<p>Event Detail</p>
+
+<p><% @enquiry.inquiry_profiles.each do |ip|%>
+	<p>Profile Name: <%= ip.profile_name %></p>
+		<% ip.profile_services.each do |ps| %>
+			<p> Start Date: <%= ps.start_date %> </p>
+			<p> End Date: <%= ps.end_date %> </p>
+			<p> Performance Length: <%= ps.performance_length %> </p>
+			<p> City: <%= ps.city %> </p>
+			<p> State: <%= ps.state %> </p>
+			<p> Country: <%= ps.country %> </p>
+			<p> Venue Type: <%= ps.venue_type %> </p>
+			<p> Event Type: <%= ps.event_type %> </p>
+			<p> Number Of Guest: <%= ps.number_of_guests %> </p>
+		<% end %>
+	<% end %>
+
+  <p>Customer Detail</p>
+	<p> Client Name: <%= @enquiry.client_name %> </p>
+	<p> Client Company: <%= @enquiry.client_company %> </p>
+	<p> Address: <%= @enquiry.address %> </p>
+	<p> Client City: <%= @enquiry.client_city %> </p>
+	<p> Email: <%= @enquiry.email %> </p>
+	<p> Phone: <%= @enquiry.phone %> </p>
+	<p> Client Number: <%= @enquiry.client_number %> </p>
+	<p> Fax: <%= @enquiry.fax %> </p>
+	<p> Other Entertainment: <%= @enquiry.other_entertainment %> </p>
+	<p> Event Detail: <%= @enquiry.event_detail %> </p>
+</p>

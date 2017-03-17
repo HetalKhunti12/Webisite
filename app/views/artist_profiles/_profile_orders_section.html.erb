@@ -1,0 +1,253 @@
+<%= tinymce_assets %>  
+<div class="inner-page clearfix">
+  <div class="container">
+    <div class="inner-ttl">Profile & Performance Details</div>   
+    <div class="form-block "> 
+      <div class="form-padding">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="text-field">
+              <%= f.label "Title" %>
+              <%= f.text_field :title, class:  "form-control artist_email"  %>
+              <%= f.hidden_field :contact_id, value: current_contact.id, class:  "form-control artist_email"  %>
+            </div>
+            <div class="text-field">
+              <%= f.label "Category" %>
+              <%= f.select :category_id, options_from_collection_for_select(@categories, :id, :name, selected: @artist_profile.category_id), {:include_blank => 'Select Category'} , class: "form-control" %>
+            </div>
+
+            <div class="text-field">
+              <%= f.label "Sub Category" %>
+              <% if f.object.present? %>
+                <%= hidden_field_tag :sub_category_id, @artist_profile.sub_category_id, class: "sub_category_id" %>
+                <%= f.select :sub_category_id, '' , {include_blank: ""}, class: "form-control sub_category" %>
+              <% else %>
+                <%= f.select :sub_category_id, '' , {include_blank: ""}, class: "form-control sub_category" %>
+              <% end %>
+            </div>
+            
+            <div class="text-field">
+              <%= f.label "Country" %>
+              <%= f.select :country, options_for_select(CS.countries.map { |h| [h[1], h[0]] },@artist_profile.country ), {include_blank: "Select Country"}, class: "form-control"%>
+            </div>
+           
+            <div class="text-field">
+              <%= f.label "State" %>
+              <% if f.object.present? %>
+                <%= hidden_field_tag :state, @artist_profile.state, class: "state_id" %>
+                <%= f.select :state, options_for_select(CS.states(@artist_profile.country).map { |h| [h[1], h[0]] }, @artist_profile.state), {include_blank: ""}, class: "form-control" %>
+              <% else %>
+                <%= f.select :state, '', {include_blank: ""}, class: "form-control", multiple: true %>
+              <% end %>
+            </div>
+            <div class="text-field">
+              <%= f.label "SUBURB/TOWN" %>
+              <% if f.object.present? %>
+                <%= f.select :location2, options_for_select(CS.cities(@artist_profile.state), @artist_profile.location2), {include_blank: ""}, class: "form-control" %>
+              <% else %>
+                <%= f.select :location2, '', {include_blank: "Select Country"}, class: "form-control", multiple: true %>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="text-field">
+              <%= f.label "Australia-Wide" %>
+              <%= f.check_box :country_wide%>
+            </div>
+            <div class="text-field">
+              <%= f.label "Keywords" %>
+              <%= f.text_area :keywords, class:  "form-control" %> 
+            </div>
+            <div class="text-field">
+              <%= f.label "Travel Information" %>
+              <%= f.text_area :travel_information, class:  "form-control" %>   
+            </div>
+
+            <div class="text-field">
+              <%= f.label "Pricing" %>
+              <%= f.select :price, options_for_select(ArtistProfile::PRICING, selected: @artist_profile.price ),{include_blank: ""}, class: "form-control" %> 
+              <%= f.text_field :other_price, class:  "form-control other_price", style: "display:none;" %>
+            </div>
+            <div class="text-field">
+              <%= f.label "Profile Type" %>
+              <%= f.select :p_profile_type, options_for_select(ProfileType.all.to_a.map{|s|[s.name, s.id]}, f.object.p_profile_type),{:include_blank => ''} , id: "profile_type", class:  "form-control profile_type" %>
+            </div>                 
+
+            <div class="text-field">
+              <%= f.label "Published" %>
+              <%= f.check_box :published , {checked: true}%>
+            </div>
+          </div>
+        </div>
+        <% if f.object.present? and (f.object.p_profile_type == 1 or f.object.p_profile_type == 3) %>
+          <div class="row band_detail"> 
+        <% else %>
+          <div class="row band_detail" style="display:none;">
+        <% end %>
+          <div class="col-md-6 col-sm-6"> 
+            <div class="text-field">
+              <%#= f.label :access_time %>
+              <%#= f.text_field :access_time, value: DateTime.now, class:  "form-control datepicker" %> 
+            </div>
+            <div class="text-field">
+              <%= f.label "Note" %>
+              <%= f.text_area :access_time_note, class:  "form-control" %>  
+            </div>
+            <div class="text-field">
+              <%#= f.label :sound_check_time %>
+              <%#= f.text_field :guest_arrival_time, value: DateTime.now,  class:  "form-control datepicker" %> 
+            </div>
+            <div class="text-field">
+              <%#= f.label "Note" %>
+              <%#= f.text_area :sound_check_time_note, class: "form-control" %>  
+            </div>
+            <div class="text-field">
+              <%= f.label "Quantity" %>
+              <%#= f.text_area :quantity, class: "form-control" %>  
+              <%= f.select :quantity, options_for_select(0..20), { prompt: "Select No" }, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="text-field">
+              <%#= f.label :guest_arrival_time %>
+              <%#= f.text_field :guest_arrival_time, value: DateTime.now, class:  "form-control datepicker" %> 
+            </div>
+            <div class="text-field">
+               <%#= f.label "Note" %>
+                <%#= f.text_area :guest_arrival_time_note, class:  "form-control" %>  
+            </div>
+            <div class="text-field">
+               <%= f.label "Stage Size (Area)" %>
+                <%= f.text_field :stage_size, class:  "form-control " %>  
+            </div>
+            
+            <div class="text-field">
+                <%= f.label :load_in_directions %>
+                <%= f.text_area :load_in_directions, class:  "form-control"%>
+            </div>        
+          </div>
+        </div>
+        
+
+        <div class="row">
+          <div class="lable_width">
+            <%= f.label "Sort Description", class: "" %>
+          </div>
+          <div class="text-field textarea-block col-md-10">
+            <% if @artist_profile.short_description.present? %>
+              <%= f.text_area :short_description, value: raw(@artist_profile.short_description),  rel: "tinymce",  :rows => 10, :cols => 70 %> 
+            <% else %>
+              <%= f.text_area :short_description,  rel: "tinymce",  :rows => 10, :cols => 70 %>
+            <% end %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="lable_width">
+            <%= f.label "Long Description", class: "" %>
+          </div>
+          <div class="text-field textarea-block col-md-10">
+            <% if @artist_profile.long_description.present? %>
+              <%= f.text_area :long_description, value: raw(@artist_profile.long_description),  rel: "tinymce",  :rows => 10, :cols => 70 %> 
+            <% else %>
+              <%= f.text_area :long_description,  rel: "tinymce",  :rows => 10, :cols => 70 %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="inner-page clearfix">
+  <div class="container">
+    <div class="inner-ttl">Upload Media </div>
+    <div class="form-block">
+      <div class="form-padding">
+        <div class="row">      
+          <div class="col-md-12 btn-center-block">
+            <div class="row">      
+              <%= f.fields_for :profile_images do |pi| %>
+                <%= render partial: 'artist_profiles/profile_image_fields', locals: {f: pi} %>
+              <% end %>
+              
+              <%= link_to_add_artist_profile "Add Images", f, :profile_images %>
+            </div>
+            
+            <br>
+
+            <div class="row">      
+              <%= f.fields_for :profile_videos do |pv| %>
+                <%= render partial: 'artist_profiles/profile_video_fields', locals: {f: pv} %>
+
+              <% end %>
+              
+              <%= link_to_add_artist_profile "Add Videos", f, :profile_videos %>
+            </div>
+
+            <br>
+
+            <div class="row">      
+              <%= f.fields_for :profile_contents do |pc| %>
+                <%= render partial: 'artist_profiles/profile_content_fields', locals: {f: pc }%>
+
+              <% end %>
+              <%= link_to_add_fields "Add Profile Content", f, :profile_contents %>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+<div class="inner-page clearfix">
+  <div class="container">    
+    <div class="inner-ttl">Service Order </div>
+    <div class="form-block">
+      <div class="form-padding so-section">
+        <%= f.fields_for :artist_service_orders do |sf| %>
+          <%= render partial: 'artist_profiles/artist_service_order_fields', locals: {f: sf, po_index: increment_by_one(f.index)}%>
+        <% end %>
+        <div class="btn-center-block">
+          <%= link_to_add_fields "Add Service Order", f, :artist_service_orders %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= tinymce %>
+
+<script type="text/javascript">
+  addArtistProfileCallbacks();
+  $("document:ready", function() {
+    $("[rel=tinymce]").tinymce({
+      theme: "modern",
+      toolbar: "bold,italic,underline,|,bullist,numlist,outdent,indent,|,undo,redo,|,pastetext,pasteword,selectall,|,uploadimage",
+      pagebreak_separator: "<p class='page-separator'>&nbsp;</p>",
+      plugins: ["uploadimage", "table"],
+      relative_urls: false,
+      remove_script_host: false,
+      document_base_url: (!window.location.origin ? window.location.protocol + "//" + window.location.host : window.location.origin) + "/",
+    })  
+  });
+
+  $( ".profile_type" ).on('change', function() {
+    if ($(this).val() == 1) {
+      $(".band_detail").show("slow");
+    } else{
+      $(".band_detail").hide("slow");
+    }
+  });
+
+  $('.datepicker').datetimepicker({
+      format: "YYYY-MM-DD LT",
+      sideBySide: true
+    });
+
+
+</script>

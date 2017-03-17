@@ -1,0 +1,24 @@
+<div class="col-md-6">
+  <div class="text-field">
+      <%= pi.label "Title" %>
+      <%= pi.text_field :title, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="text-field">
+    <div class="col-md-4">
+      <%= pi.label "Image" %>
+    </div>
+    <div class="col-md-7">
+      <% if pi.object.present? %>
+        <%= pi.file_field :image %>
+      <% else %>
+        <%= pi.file_field :image, required: true %>
+      <% end %>
+      <hint>Upload Image Atleast (300X220) Dimensions </hint>
+    </div>
+  </div>
+</div>
+  
+    

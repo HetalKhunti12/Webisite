@@ -1,0 +1,51 @@
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+<div class="card">
+    <div class="card-block">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        
+        <%= devise_error_messages! %>
+
+        <%= f.hidden_field :reset_password_token %>
+        <!--Header-->
+        <div class="text-xs-center">
+            <h3><i class="fa fa-lock"></i>Change your password</h3>
+            <hr class="mt-2 mb-2">
+        </div>
+
+        <!--Body-->
+        <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+            <% end %>
+            <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control"  %>
+            <label for="form2">New password</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+            <label for="form2">Confirm new password</label>
+        </div>
+
+
+        <div class="text-xs-center">
+          <%= f.submit "Send me reset password instructions",class: "btn sub-btn" %>
+        </div>
+
+    </div>
+    <% end %>
+
+    <!--Footer-->
+    <div class="modal-footer">
+        <div class="options">
+            <p>Forgot <%= link_to "password?", new_password_path(@contact) %><br /></p>
+        </div>
+    </div>
+
+</div>
+</div>
+
+

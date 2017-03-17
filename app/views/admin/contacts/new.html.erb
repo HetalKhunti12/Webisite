@@ -1,0 +1,27 @@
+<div class="login-block">
+  <div class="login-page">
+    <div class="card"></div>
+    <div class="card">
+      <h1 class="title">Login</h1>
+      <%= simple_form_for(@contact, :url => admin_contacts_path ) do |f| %>
+          <%= f.error_notification %>
+        <div class="input-container">
+          <%= f.input :work_email, label: false  %>
+          <label for="">Email</label>
+          <div class="bar"></div>
+        </div>
+        <div class="input-container">
+          <%= f.input :encrypted_password, label: false %>
+          <label for="">Password</label>
+          <div class="bar"></div>
+        </div>
+        <div class="button-container">
+          <span><%= f.button :submit, "Log In" %></span>
+        </div>
+        <div class="footer">
+          <%= link_to "Forgot your password?", new_password_path(@contact) %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

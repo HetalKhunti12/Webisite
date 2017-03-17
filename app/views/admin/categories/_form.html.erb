@@ -1,0 +1,16 @@
+<%= simple_form_for([:admin, @category], html: { multipart: true }) do |f| %>
+  
+
+  <div class="form-inputs">
+    <%= f.collection_select :parent_id, @categories, :id, :name, :include_blank => true %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :meta_decription %>
+    <%= f.file_field  :image %>
+    <hint>Upload Image Atleast (300X220) Dimensions </hint>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

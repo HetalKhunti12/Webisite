@@ -1,0 +1,51 @@
+<div class="container">   
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Appointments (Service Orders)</h1>
+    </div>
+    <div class="col-md-4 text-right">
+      <h1><%= link_to 'New Service Order', new_artist_service_order_path, :class => "btn btn-default align-center"  %></h1>
+    </div>
+  </div>
+  <% if @artist_service_orders.present? %>
+    <div class="table-responsive table-first">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Profile Title</th>
+            <th>Start Date</th>
+            <th>Start Time</th>
+            <th>Performance duration</th>
+            <th>Summary</th>
+            <th>Artist Fee</th>
+            
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @artist_service_orders.each do |service_order| %>
+            <tr>
+              <td><%= service_order.artist_profile.title %></td>
+              <td><%= service_order.service_start.strftime("%A, %d %b %Y %l:%M %p") %></td>
+              <td><%= service_order.service_end.strftime("%A, %d %b %Y %l:%M %p") %></td>
+              <td><%= service_order.total_performance_duration %></td>
+              <td><%= service_order.so_summary %></td>
+              <td>$<%= number_with_precision(service_order.new_artist_fee_cents, precision: 2)  %></td>
+              <td><%= link_to '', edit_artist_service_order_path(service_order), class: "fa fa-pencil-square-o btn-edit" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pull-right">
+      <%#= will_paginate @artist_service_orders, renderer: BootstrapPagination::Rails %>
+    </div>
+
+  <% else %>
+     <p>Record Not Found</p>
+  <% end %>
+</div>
+<br>
+

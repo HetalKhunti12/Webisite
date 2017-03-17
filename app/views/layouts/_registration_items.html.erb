@@ -1,0 +1,12 @@
+<% if contact_signed_in? %>
+  <li>
+  <%#= link_to('Update Profile', edit_contact_registration_path, class: "btn btn-success button-style") %>
+  </li>
+<% else %>
+  <li>
+  <%#= link_to('Register', new_listing_path, class: "btn btn-success button-style")  %>
+  </li>
+<% end %>
+
+
+<%= link_to('Register', new_listing_path, class: "btn btn-success button-style")  %>

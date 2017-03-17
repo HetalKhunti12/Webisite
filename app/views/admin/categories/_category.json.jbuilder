@@ -1,0 +1,2 @@
+json.extract! category, :id, :categoryName, :categoryParentId, :categoryDescription, :categoryChildren, :categorySectionId, :categoryDepth, :categorySequence, :categorySequenceAlpha, :categoryLineage, :url_path, :categoryIntroduction, :CategoryByline, :CategoryTitle, :created_at, :updated_at
+json.url category_url(category, format: :json)

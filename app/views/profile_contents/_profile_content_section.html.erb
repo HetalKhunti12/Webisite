@@ -1,0 +1,23 @@
+
+<div class="col-md-6">
+  <div class="text-field">
+      <%= pc.label "Title" %>
+      <%= pc.text_field :title, class: "form-control" %>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="text-field">
+    <div class="col-md-4">
+      <%= pc.label "Image" %>
+    </div>
+    <div class="col-md-7">
+      <% if pc.object.present? %>
+        <%= pc.file_field :certificate %>
+      <% else %>
+        <%= pc.file_field :certificate, required: true %>
+      <% end %>
+    </div>
+  </div>
+</div>
+  

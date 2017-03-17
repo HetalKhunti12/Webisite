@@ -1,0 +1,1 @@
+json.partial! "profile_videos/profile_video", profile_video: @profile_video

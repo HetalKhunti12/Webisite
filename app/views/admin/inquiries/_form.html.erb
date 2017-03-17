@@ -1,0 +1,393 @@
+<%= form_for([:admin, @inquiry]) do |f| %>
+
+  <div class="panel panel-default">    
+    <div class="panel-heading ">Inquiry Details </div>
+    <div class="panel-body booking-top-section">
+      <div class="col-md-12">
+        <div class="panel panel-default"> 
+        <div class="panel-heading ">Event Details </div>
+          <div class="panel-body inquiry-top-section">
+            <%= f.fields_for :inquiry_profiles do |ip| %>
+              <div class="col-md-12">
+                <div class="profile-service-section">
+                  <%= ip.fields_for :profile_services do |ps| %>
+                    <div class="order_detail_section">    
+                      <div class="booking-top-section order-detail-section">
+                        <div class="col-md-6"> 
+                          <div class="row">
+                            <div class="col-md-4 artist_date">
+                              <%= f.label "Start Date" %>
+                            </div>
+                            <div class="col-md-8 artist_date">
+                              <% if f.object.present? and f.object.id.present? %>
+                                <%= ps.text_field :start_date, class: "form-control datepicker start-date-cl", value: ps.object.start_date  %>
+                              <% else %>
+                                <%= ps.text_field :start_date, class: "form-control datepicker start-date-cl", required: true %>
+                              <% end %>
+                            </div> 
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= f.label "End Date" %>
+                            </div>
+                            <div class="col-md-8">
+                              <% if ps.object.present? and ps.object.id.present? %>
+                                <%= ps.text_field :end_date, class: "form-control datepicker end-date-cl", value: ps.object.end_date %>
+                              <% else %>
+                                <%= ps.text_field :end_date, class: "form-control datepicker end-date-cl", required: true %>
+                              <% end %>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= ps.label "Performance Length" %>
+                            </div>
+                            <div class="col-md-8">
+                              <%= ps.text_field :performance_length, class: "form-control performance_length" %>
+                            </div> 
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= ps.label "Location" %>
+                            </div>
+                            <div class="col-md-8">
+                              <%= ps.text_field :location, class: "form-control location" %>
+                            </div> 
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= ps.label "Artist Fee" %>
+                            </div>
+                            <div class="col-md-8">
+                              <%= ps.text_field :artist_fee, class: "form-control artist_fee" %>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= ps.label "Booking Fee With Gst" %>
+                            </div>
+                            <div class="col-md-8">
+                              <%= ps.text_field :artist_fee_include_gst, class: "form-control artist_fee_include_gst" %>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= ps.label "Commission" %>
+                            </div>
+                            <div class="col-md-8">
+                              <%= ps.text_field :gross_commission_percent, class: "form-control gross_commission_percent" %>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= f.label "City" %>
+                            </div>
+                            <div class="col-md-8">
+                              <%= ps.text_field :city, class: "form-control city" %>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= ps.label "State" %>
+                            </div>
+                            <div class="col-md-8">
+                              <%= ps.text_field :state, class: "form-control state" %>
+                            </div> 
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= f.label "Country" %>
+                            </div>
+                            <div class="col-md-8">
+                              <%= ps.text_field :country, class: "form-control country" %>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= f.label "Venue Type" %>
+                            </div>
+                            <div class="col-md-8">
+                              <% if ps.object.present? and ps.object.present? %>
+                                <%= ps.select :venue_type, options_for_select(@venue_types.collect { |s| [s[0].humanize, s[0]] }, selected: ps.object.venue_type), {:include_blank => ''} , class: "form-control venue_type", id: "profile_service_venue_type" %>
+                              <% else %>
+                                <%= ps.select :venue_type, options_for_select(@venue_types.collect { |s| [s[0].humanize, s[0]] }), {:include_blank => ''} , class: "form-control venue_type", id: "profile_service_venue_type" %>
+                              <% end %>
+                              <%= ps.text_field :venue_type_other, style: "display: none;", class: "form-control venue_type_other" %>
+
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= f.label "Event Type" %>
+                            </div>
+                            <div class="col-md-8">
+                              <% if ps.object.present? and ps.object.present? %>
+                                <%= ps.select :event_type, options_for_select(@event_types.collect { |s| [s[0].humanize, s[0]] }, selected: ps.object.event_type), {:include_blank => ''} , class: "form-control event_type", id: "profile_service_event_type" %>
+                              <% else %>
+                                <%= ps.select :event_type, options_for_select(@event_types.collect { |s| [s[0].humanize, s[0]] }), {:include_blank => ''} , class: "form-control event_type", id: "profile_service_event_type" %>
+                              <% end %>
+                              <%= ps.select :event_type_other, options_for_select(@birthdays.collect { |s| [s[0].humanize, s[0]] }), {:include_blank => ''} , class: "form-control event_type_birthday", id: "birthday_field", style: "display: none;", disabled: true %>
+                              <%= ps.text_field :event_type_other, style: "display: none;", class: "form-control event_type_other" %>
+                            </div> 
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <%= f.label "No Of Person" %>
+                            </div>
+                            <div class="col-md-8">
+                              <%= ps.text_field :number_of_guests, class: "form-control number_of_guests" %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="panel panel-default">    
+        <div class="panel-heading ">Customer Details </div>
+          <div class="panel-body inquiry-top-section">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Event Detail" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_area :event_detail, class: "form-control" %>
+                </div> 
+              </div>
+               
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Client Name" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_field :client_name, class: "form-control" %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Company" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_field :client_company, class: "form-control" %>
+                </div> 
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Address" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_area :address, class: "form-control" %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Client City" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_field :client_city, class: "form-control" %>
+                </div> 
+              </div>
+              
+            </div>
+
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Email" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_field :email, class: "form-control" %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Landline" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_field :phone, class: "form-control" %>
+                </div> 
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Mobile" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_field :client_number, class: "form-control" %>
+                </div> 
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Fax" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_field :fax, class: "form-control" %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Other Entertainment" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_field :other_entertainment, class: "form-control" %>
+                </div> 
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Client Comment" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_area :client_comment, class: "form-control" %>
+                </div> 
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Your Comment" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.text_area :artist_comment, class: "form-control" %>
+                </div> 
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Approved" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.check_box :approved %>
+                </div> 
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <%= f.label "Special Client" %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.check_box :special_client %>
+                </div> 
+              </div>
+           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>       
+     
+     
+  <div class="row" style="margin-top:30px">
+    <div class="col-md-3 actions col-md-offset-3 text-center">
+        <%= f.submit "Save & close", class: "btn btn-success save-inquiry" %>  
+    </div>
+     
+    <div class="col-md-3 actions text-center">
+      <%= f.submit "Email Form", class: "btn btn-success save-inquiry", name:'email_form' %>  
+    </div>
+    <div class="col-md-2 text-center">
+      <%= link_to "Close", request.referer, {:class=>"btn btn-danger"} %>
+    </div>
+  </div>
+
+<% end %>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    
+    $('.datepicker').datetimepicker({
+      format: "YYYY-MM-DD LT",
+      sideBySide: true
+    });
+    
+
+    $('.datetimepicker').datetimepicker({
+      format: "LT"
+    });
+
+    $("#inquiry_client_number").mask("9999 999 999");
+    $("#inquiry_phone").mask("(99) 9999 9999");
+
+  
+  addInquiryCallbacks(); 
+
+
+
+  $('#profile_service_event_type').on('change', function() {
+    if (this.value == "birthday"){
+      $("#inquiry_inquiry_profiles_attributes_0_profile_services_attributes_0_event_type_other").fadeOut( "slow" );
+      $("#inquiry_inquiry_profiles_attributes_0_profile_services_attributes_0_event_type_other").prop( "disabled", true );
+      $("#birthday_field").fadeIn( "slow" );
+      $("#birthday_field").prop( "disabled", false );
+    } 
+    else{
+      $("#inquiry_inquiry_profiles_attributes_0_profile_services_attributes_0_event_type_other").fadeIn( "slow" );
+      $("#inquiry_inquiry_profiles_attributes_0_profile_services_attributes_0_event_type_other").prop( "disabled", false );
+      $("#birthday_field").fadeOut( "slow" );
+      $("#birthday_field").prop( "disabled", false );
+    }
+  })
+
+
+  $('#profile_service_venue_type').on('change', function() {
+    $("#inquiry_inquiry_profiles_attributes_0_profile_services_attributes_0_venue_type_other").css('display','block');
+    $("#inquiry_inquiry_profiles_attributes_0_profile_services_attributes_0_venue_type_other").prop( "disabled", false );
+  })
+      
+});
+
+
+</script>
+
+<style type="text/css">
+  .plus_button {
+      width: 95%;
+      display: inline-block;
+      margin-right: 19px;
+    }
+  .remove-me{
+    width:38px;
+  }
+  .add-more{
+    margin-left: 315px;
+    margin-top: -70px;
+  }
+  .artist_type{
+    padding-top: 5px;
+    vertical-align: middle;
+  }
+
+  .artist_gst{
+    padding-bottom: 10px;
+    vertical-align: middle;
+    padding-left: 5px;
+  }
+
+  .artist_date{
+    padding-top: 10px;
+  }
+  #artist_type_entertainer{
+    vertical-align: middle;
+  }
+  #artist_type_band{
+    vertical-align: middle;
+  }
+  .other_artist{
+    vertical-align: middle;
+  }
+
+</style>
+  

@@ -1,0 +1,55 @@
+
+<div class="profile-video-section">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="text-field">
+          <%= pc.label "Title" %>
+          <%= pc.text_field :title, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="text-field">
+        <div class="col-md-4">
+          <%= pc.label "Type" %>
+        </div>
+        <div class="col-md-7">
+          <%= radio_button_tag(:options, "url", true, class: "video_url") %> Url
+          <%= radio_button_tag(:options, "video", false, class: "upload_video") %>Video
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
+      <div class="text-field">
+        <%= pc.text_field :video_url, class: "form-control video_url1" %>
+        <div id="upload_video" style="display:none;">
+          <%= pc.file_field :video %>
+          <hint>Upload Only Mp4 Videos</hint>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+  
+
+
+<script type="text/javascript">
+   $(".upload_video").change(function () {
+
+    $(this).closest('.profile-video-section').find(".video_url1").css("display", "none");
+    $(this).closest('.profile-video-section').find("#upload_video").css("display", "block");
+   });
+
+
+  $(".video_url").change(function () {
+    $(this).closest('.profile-video-section').find(".video_url1").css("display", "block");
+    $(this).closest('.profile-video-section').find("#upload_video").css("display", "none");
+   });
+
+
+</script>

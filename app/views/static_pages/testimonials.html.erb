@@ -1,0 +1,39 @@
+<div class="container">
+  
+    <div class="fetured-title pink bold">
+      <div class="text-uppercase Black">
+        Testimonials
+      </div>
+    </div>
+          
+        
+  
+
+  <% @testimonial = Testimonial.first %>
+  <% if @testimonial.present? %>
+    
+
+    <div class="row">  
+        
+      <div class="testimonial_block">
+        <div class="col-md-12 ">
+          <div class="testimonial_title" ><%= @testimonial.title %></div>
+        </div>
+        <div class="col-md-2 col-sm-2">
+          <div class="testi-author">
+          <%= image_tag @testimonial.testimonial_image.url if @testimonial.testimonial_image.present?  %>
+          </div>
+        </div>
+
+        <div class="col-md-10 col-sm-10">
+          <div class="testi-desc">
+          <%= raw (@testimonial.description) %>
+          </div>
+        </div>
+      </div>
+        
+    </div>
+  <% end %>
+</div>
+
+

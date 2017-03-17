@@ -1,0 +1,34 @@
+<div class="container">
+  
+  
+    <div class="fetured-title pink bold">
+      <div class="text-uppercase Black"> HOW IT WORKS </div>
+    </div>
+  
+
+  <% @how_it_works = HowItWork.first %>
+  <% if @how_it_works.present? %>
+
+    <div class="row">  
+      
+        <div class="col-md-12 ">
+          <div class="how_it_works_text">
+            <% if @how_it_works.how_it_works_image.present? %>
+              <div class="how_it_works">
+              <%= image_tag @how_it_works.how_it_works_image.url  %>
+              </div>
+            <% end %>  
+            <p><span><%= raw(@how_it_works.context)%></span></p>
+            <% if @how_it_works.how_it_works_video.present? %>
+              <div class="how_it_works_video">
+                <%= video_tag @how_it_works.how_it_works_video.url, controls: true, type: "video/mp4", size: "365x365" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+    </div>
+    
+
+    
+  <% end %>
+</div>

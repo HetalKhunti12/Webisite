@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Inquiries</h1>
+    </div>
+  </div>
+
+  <div class="table-responsive table-first">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Client number</th>
+          <th>Client name</th>
+          <th>Address</th>
+          <th>Client city</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Fax</th>
+          <th>Approved</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @inquiries.each do |inquiry| %>
+          <tr>
+            <td><%= inquiry.try(:client_number) %></td>
+            <td><%= inquiry.try(:client_name) %></td>
+            <td><%= inquiry.try(:address) %></td>
+            <td><%= inquiry.try(:client_city) %></td>
+            <td><%= inquiry.try(:email) %></td>
+            <td><%= inquiry.try(:phone) %></td>
+            <td><%= inquiry.try(:fax) %></td>
+            <td>
+              <% if inquiry.booking.present? %>
+                <%= image_tag("green.png", height: "25", width: "25") %>
+              <% else %>
+                <%= image_tag("red.png", height: "25", width: "25") %>
+              <% end %>
+            </td>
+            <td><%= link_to '', edit_admin_inquiry_path(inquiry), class: "fa fa-pencil-square-o btn-edit" %></td>
+            <td><%= link_to '', [:admin, inquiry], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-dlt fa fa-trash" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pull-right">
+    <%= will_paginate @inquiries, renderer: BootstrapPagination::Rails %>
+  </div>
+
+  <br>
+</div>

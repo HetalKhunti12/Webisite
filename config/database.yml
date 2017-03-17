@@ -1,0 +1,27 @@
+  development:
+    adapter: postgresql
+    encoding: unicode
+    database: entoz_website_new
+    pool: 5
+    username: postgres
+    password: postgres
+    host: localhost
+
+  # Warning: The database defined as "test" will be erased and
+  # re-generated from your development database when you run "rake".
+  # Do not set this db to the same as development or production.
+  test:
+    adapter: postgresql
+    encoding: unicode
+    database: entoz_test
+    pool: 5
+    host: localhost
+
+  production:
+    database: ENV['DATABASE_URL1']
+    adapter: postgresql
+    encoding: unicode
+    pool: 5
+    host: localhost
+    username: ENV['database_username']
+    password: ENV['database_password']

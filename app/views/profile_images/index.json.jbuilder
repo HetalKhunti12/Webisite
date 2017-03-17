@@ -1,0 +1,1 @@
+json.array! @profile_images, partial: 'profile_images/profile_image', as: :profile_image

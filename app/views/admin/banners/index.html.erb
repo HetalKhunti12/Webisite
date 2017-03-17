@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Banners</h1>
+    </div>
+    <div class="col-md-4 text-right">
+      <h1><%= link_to 'New Banner', new_admin_banner_path, 'data-no-turbolink' => true,  :class => "btn btn-default align-center"  %></h1>
+    </div>
+  </div>
+
+  <% if @banners.present? %>
+    <div class="table-responsive table-first">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Banner</th>
+            <th>Category</th>
+            <th> Edit </th>
+            <th> Delete </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @banners.each do |banner| %>
+            <tr>
+              <td><%= banner.title %></td>
+              <td><%= image_tag banner.banner.url(:medium) %></td>
+              <td><%= banner.category.name if banner.category.present? %></td>
+              <td><%= link_to '', edit_admin_banner_path(banner), class: "fa fa-pencil-square-o btn-edit" %></td>
+              <td><%= link_to '', [:admin, banner], method: :delete, data: { confirm: 'Are you sure?' } , class: "btn-dlt fa fa-trash" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    No Record Found
+  <% end %>
+</div>
+
+<div class="pull-right">
+  <%= will_paginate @banners, renderer: BootstrapPagination::Rails %>
+</div>
+
+<br>
+

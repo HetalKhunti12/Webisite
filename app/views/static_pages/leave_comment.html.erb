@@ -1,0 +1,53 @@
+<div class="blog_comment container">
+  <div class="row">  
+    <div class="col-md-2 col-sm-2">
+      <%= image_tag @blog.blog_image.url %>
+    </div>
+    <div class="col-md-10 col-sm-10 ">
+      <div class="blog_title"><%= @blog.title %></div>
+      <div><%= @blog.updated_at.strftime("%B %d, %Y")  %></div>
+      <div class="blog_context"><%= raw(@blog.context) %></div>
+    </div>
+     
+  </div></br>
+  <div class="row">  
+    <div class="col-md-8 col-sm-8 ">
+      <h2>Comments</h2>
+      <% @blog.comments.each do |comment| %>
+        <p>
+          <strong>Commenter:</strong>
+          <%= comment.commenter %>
+        </p>
+       
+        <p>
+          <strong>Comment:</strong>
+          <%= comment.body %>
+        </p>
+      <% end %>
+      <section id="blog_cmt" class="blog-comment">
+        
+          
+            <div class="comments">
+              <span>Have a view about this post? Leave a Comment </span>
+              <%= form_for([@blog, @blog.comments.build]) do |f| %>
+                <p>
+                  <%= f.label :commenter %><br>
+                  <%= f.text_field :commenter %>
+                </p>
+                <p>
+                  <%= f.label :body %><br>
+                  <%= f.text_area :body %>
+                </p>
+                <p>
+                  <%= f.submit "Create Comment" , class: "btn btn-register"%>
+                </p>
+              <% end %>
+            </div>
+          
+        
+      </section>
+    </div>
+  </div>
+  
+</div>
+

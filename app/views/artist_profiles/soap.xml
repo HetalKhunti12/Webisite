@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+    <soap:Body>
+        <CreateAccessCode xmlns="https://api.ewaypayments.com/">
+            <request>
+                <Customer>
+                    <Reference>A12345</Reference>
+                    <Title>Mr.</Title>
+                    <FirstName>John</FirstName>
+                    <LastName>Smith</LastName>
+                    <CompanyName>Demo Shop 123</CompanyName>
+                    <JobDescription>Developer</JobDescription>
+                    <Street1>Level 5</Street1>
+                    <Street2>369 Queen Street</Street2>
+                    <City>Sydney</City>
+                    <State>NSW</State>
+                    <PostalCode>2000</PostalCode>
+                    <Country>au</Country>
+                    <Email>demo@example.org</Email>
+                    <Phone>0289712345</Phone>
+                    <Mobile>0289712345</Mobile>
+                    <Comments>Customer comments</Comments>
+                    <Fax>0289712345</Fax>
+                    <Url>http://www.ewaypayments.com</Url>
+                </Customer>
+                <ShippingAddress>
+                    <ShippingMethod>NextDay</ShippingMethod>
+                    <FirstName>John</FirstName>
+                    <LastName>Smith</LastName>
+                    <Street1>Level 5</Street1>
+                    <Street2>369 Queen Street</Street2>
+                    <City>Sydney</City>
+                    <State>NSW</State>
+                    <PostalCode>2000</PostalCode>
+                    <Country>au</Country>
+                    <Email>demo@example.org</Email>
+                    <Phone>0289712345</Phone>
+                    <Fax>0289712345</Fax>
+                </ShippingAddress>
+                <Items>
+                    <LineItem>
+                        <SKU>12345678901234567890</SKU>
+                        <Description>Item Description 1</Description>
+                        <Quantity>1</Quantity>
+                        <UnitCost>400</UnitCost>
+                        <Tax>100</Tax>
+                        <Total>500</Total>
+                    </LineItem>
+                    <LineItem>
+                        <SKU>123456789012</SKU>
+                        <Description>Item Description 2</Description>
+                        <Quantity>1</Quantity>
+                        <UnitCost>400</UnitCost>
+                        <Tax>100</Tax>
+                        <Total>500</Total>
+                    </LineItem>
+                </Items>
+                <Options>
+                    <Option>
+                        <Value>Option1</Value>
+                    </Option>
+                    <Option>
+                        <Value>Option2</Value>
+                    </Option>
+                </Options>
+                <Payment>
+                    <TotalAmount>1000</TotalAmount>
+                    <InvoiceNumber>Inv 21540</InvoiceNumber>
+                    <InvoiceDescription>Individual Invoice Description</InvoiceDescription>
+                    <InvoiceReference>Individual Invoice Description</InvoiceReference>
+                    <CurrencyCode>AUD</CurrencyCode>
+                </Payment>
+                <RedirectUrl>http://www.eway.com.au</RedirectUrl>
+                <CustomerIP>127.0.0.1</CustomerIP>
+                <TransactionType>Purchase</TransactionType>
+                <Method>ProcessPayment</Method>
+                <DeviceID>D1234</DeviceID>
+            </request>
+        </CreateAccessCode>
+    </soap:Body>
+</soap:Envelope>
+

@@ -1,0 +1,14 @@
+<%= simple_form_for(@profile_video) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :video %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.select :artist_profile_id, options_from_collection_for_select(current_contact.artist_profiles.all, :id, :p_name), {:include_blank => ''} , class: "form-control event_type" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

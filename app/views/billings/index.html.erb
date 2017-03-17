@@ -1,0 +1,33 @@
+<%#= render 'shared/orders_nav_bar' %>
+<div class="container"> 
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Billing</h1>
+    </div>
+  </div>
+
+  <div class="table-responsive table-first">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% current_contact.contact_payments.each do |payment| %>
+          <tr>
+            <td><%= payment.payment_type %></td>
+            <td><%= payment.payment_date %></td>
+            <td><%= payment.amount %></td>
+            <td><%= payment.contact.first_name %></td>
+       </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>

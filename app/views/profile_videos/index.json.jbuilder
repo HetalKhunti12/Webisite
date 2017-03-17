@@ -1,0 +1,1 @@
+json.array! @profile_videos, partial: 'profile_videos/profile_video', as: :profile_video

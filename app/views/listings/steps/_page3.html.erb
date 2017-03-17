@@ -1,0 +1,46 @@
+<h2>Payment Detail</h2>
+<%= f.fields_for :payments do |pf| %>   
+	<div class="field">
+	  <%= pf.label "Amount To Paid" %>
+	  <%= pf.hidden_field :total_amount, value: session[:paid_amount]%>
+	  <div id="amount_display" >
+	    <%= session[:paid_amount] %> <%= session[:currency] %>
+	  </div>
+	</div>
+
+	<div class="discount" style="display:none;" >
+	  <%= pf.label "Discount Amount" %>
+	  <%= pf.hidden_field :discount_price %>
+	  <div id="discount_display"></div>
+	</div>
+
+	<div>
+	  <div class="field promo_code_field">
+	    <%= pf.text_field :promo_code, autocomplete: "off" %> 
+	  </div>
+	  <div class="apply_button">
+	    <a href="javascript:void(0);" id="user_promo_code">
+	      <%= "Apply" %>
+	    </a>
+	  </div>
+	  <div id="msg_display" style="display:none;"></div>
+	</div>
+
+
+	<div class="field">
+	  <%= pf.text_field :card_holder_name, autocomplete: "off" %>
+	</div>
+
+	<div class="field">
+	  <%= pf.text_field :card_holder_number, autocomplete: "off"%>
+	</div>
+
+	<div class="field">
+	  <%= pf.text_field :cvv, autocomplete: "off" %>
+	</div>
+
+	<div class="field">
+	  <%= pf.select :expiry_month, options_for_select(Payment::MONTHS)%>
+	  <%= pf.select :expiry_year, options_for_select(Payment::YEARS)%>
+	</div>
+<% end %>

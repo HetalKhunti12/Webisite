@@ -1,0 +1,119 @@
+<div class="container">
+  <div class="fetured-title pink bold">
+    <div class="text-uppercase Black"> <%= "Profiles" %> </div>
+  </div>
+  <div class="inner_search_sect bg_pink">
+    <div class="col-md-7 center-block no-padding">
+      <%= form_tag search_home_index_path, :method => 'get', :id => "products_search" do %>
+        <%= hidden_field_tag :sub_category_id, params[:id] %>
+        <div class="col-md-9 col-sm-9 search-text key">
+          <%= text_field_tag :search, '', class: "form-control", placeholder: "Keywords:"%>
+        </div>
+        <div class="col-md-3 col-sm-3 search-text key">
+          <%= submit_tag "Search", :name => nil, class: "btn-search" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<div class="entertainers_sect clearfix">
+  <div class="container">
+    <div class="profile_city">
+      <span><%= link_to "All", ""%> (<%= @artist_profiles.count %>)</span>
+      <% Category::CITYES.each do |city| %>
+
+        <% if params[:category_id].present? and params[:sub_category_id].present?%> 
+          <span><%= link_to city, search_home_index_path(category_id:  params[:category_id], location2: city, sub_category_id: params[:sub_category_id])%> (<%= @artist_profiles.where("category_id = ? and location2 =?", params[:category_id],city).count %>)</span>
+
+        <% elsif params[:category_id].present? and params[:price] and !params[:date].present?  %>
+          <span><%= link_to city, search_home_index_path(category_id: params[:category_id],location2:  city, price: params[:price])%> (<%= @artist_profiles.where("category_id = ? and location2 =? ", params[:category_id],city).count %>)</span>
+
+        <% elsif params[:category_id].present? and !params[:date].present?  %>
+          <span><%= link_to city, search_home_index_path(category_id: params[:category_id],:location2 => city)%> (<%= @artist_profiles.where("category_id = ? and location2 =?", params[:category_id],city).count %>)</span>
+
+        <% elsif params[:sub_category_id].present? %> 
+          <span><%= link_to city, search_home_index_path(sub_category_id: params[:sub_category_id],location2: city)%> (<%= @artist_profiles.where("sub_category_id = ? and location2 =?", params[:sub_category_id],city).count %>)</span>
+        
+        <% elsif params[:keywords].present? %>
+          <span><%= link_to city, search_home_index_path(params,location2: city,keywords: params[:keywords]) %> (<%= @artist_profiles.where("location2 =?",city).count %>)</span>
+        
+        <% elsif params[:location2].present? %>
+          <span><%= link_to city, ""%> (<%= @artist_profiles.where("location2 = ? and location2 =?", params[:location2],city).count %>)</span>
+        
+        <% elsif params[:price].present? and !params[:date].present? %>
+          <span><%= link_to city, search_home_index_path(params,location2: city,price:  params[:price], category_id: params[:category]) %> (<%= @artist_profiles.where("price = ? and location2 =?", params[:price],city).count %>)</span>
+        
+        <% elsif params[:search].present? %>
+          <span><%= link_to city, search_home_index_path(params,location2: city,search: params[:search]) %> (<%= @artist_profiles.where("location2 =?", city).count %>)</span>
+       
+        <% elsif params[:date].present? %>
+          <span><%= link_to city, search_home_index_path(params,location2: city, date: params[:date], category_id: params[:category_id], price: params[:price]) %> (<%= @artist_profiles.where("location2 =?", city).joins(:availables).where("DATE(start_at) <= ? and DATE(end_at) >= ?", params[:date],params[:date]).count %>)</span>
+        <% else %>
+          <span><%= link_to city, search_home_index_path(params,location2: city) %> (<%= @artist_profiles.where("location2 = ? ", city).count %>)</span>
+        <% end %>
+      <% end %>
+
+      <span><%= link_to "Others", search_home_index_path(params,:country => "Other",:search => params[:search],category_id: params[:category_id], sub_category_id: params[:sub_category_id], keywords: params[:keywords], price: params[:price], date: params[:date] ) %> (<%= @artist_profiles.where("country NOT IN (?) or location2 NOT IN (?)", "AU", Category::CITYES).count %>)</span>
+      
+    </div>
+    
+    <% if @artist_profiles.present? %>
+      <% @artist_profiles.each_slice(5) do |artist_profile|%>
+        <div class="ent-row">
+          <% artist_profile.each do|profile| %>
+            <div class="col-md-3 col-sm-4 popular-block">
+              <div class="artist_pro">
+                <div class="artist-block">
+                  <%= link_to artist_profile_details_artist_profile_path(profile.slug) do %>
+                    <div class="popular-img all_categories"> 
+                      <% if profile.profile_images.present? %>
+                        <%= image_tag profile.profile_images.first.image.url %>
+                      <% end %>
+                        <div class="artist_pro_title"><%= profile.title %></br>
+                        <span class="artist_pro_category"><%= Category.find(profile.sub_category_id).try(:name) %></span>
+                      </div>
+                    </div>
+                  <% end %>
+                  <div class="artist_pro_description">
+                    <div class="country-type">
+                      <%= profile.try(:location2) %> , <%= profile.try(:state) %> , <%= profile.try(:country) %></br>
+                      <% if profile.country_wide == true %>
+                        <%= "Australia-wide" %>
+                      <% end %>
+                    </div>
+                    <div class="star-block">
+                      <%= rating_for profile, "original_score", stars: 5,disable_after_rate: true, target: '#abc', targetScore: '#abc' %>
+                      <div id="abc"></div>
+                    </div>
+                  </div> 
+                  <div class="reg-block">
+                    <% so_id = profile.artist_service_orders.first.id if profile.artist_service_orders.present?  %>
+                    <%= link_to "Request a Quote", artist_profile_inquiry_category_path(profile.slug, service_order_id: so_id), data: {remote: true, type: "script"}, class: "btn btn-register" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+        <%= "Artist Not Found" %>
+    <% end %>
+  </div>
+  
+</div>
+
+
+<script type="text/javascript">
+$(function () {
+    $('#datepick').each(function(){
+      $(this).datetimepicker({
+        sideBySide: true
+      });
+    });
+  });
+  
+</script>
+

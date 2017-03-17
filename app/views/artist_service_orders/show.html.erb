@@ -1,0 +1,40 @@
+<%= render 'shared/orders_nav_bar' %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Service option:</strong>
+  <%= @service_order.service_option %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @service_order.description %>
+</p>
+
+<p>
+  <strong>Service start:</strong>
+  <%= @service_order.service_start %>
+</p>
+
+<p>
+  <strong>Service duration:</strong>
+  <%= @service_order.service_duration %>
+</p>
+
+<p>
+  <strong>So title:</strong>
+  <%= @service_order.so_title %>
+</p>
+
+<p>
+  <strong>So description:</strong>
+  <%= @service_order.so_description %>
+</p>
+
+<p>
+  <strong>So price:</strong>
+  <%= @service_order.so_price %>
+</p>
+
+<%= link_to 'Edit', edit_service_order_path(@service_order) %> |
+<%= link_to 'Back', service_orders_path %>

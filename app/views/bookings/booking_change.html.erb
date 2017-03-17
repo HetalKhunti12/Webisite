@@ -1,0 +1,168 @@
+<%# abort @service_order.inspect %>
+<div class="booking_change">
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Appointment Start</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% if @serviceord.service_start != @service_order.service_start %>
+        <span style="color: red;"><%= @service_order.service_start.strftime('%d/%m/%y: %H:%M:%S') %></span>
+      <% else %>
+        <%= @service_order.service_start.strftime('%d/%m/%y: %H:%M:%S') %>
+      <% end %>
+    </div>
+  </div></br>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Appointment End</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% if @serviceord.service_end != @service_order.service_end %>
+        <span style="color: red;"><%= @service_order.service_end.strftime('%d/%m/%y: %H:%M:%S') %></span>
+      <% else %>
+        <%= @service_order.service_end.strftime('%d/%m/%y: %H:%M:%S') %>
+      <% end %>
+    </div>
+  </div></br>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Event Type</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% if @serviceord.event_type != @service_order.event_type %>
+        <span style="color: red;"><%= @service_order.event_type %></span>
+      <% else %>
+        <%= @service_order.event_type %>
+      <% end %>
+    </div>
+  </div></br>
+      
+
+  
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Expected # of guests (approximate)</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% if @serviceord.number_of_guests != @service_order.number_of_guests %>
+        <span style="color: red;"><%= @service_order.number_of_guests %></span>
+      <% else %>
+        <%= @service_order.number_of_guests %>
+      <% end %>
+    </div>
+  </div></br>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Contact person on day</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% tmp = @service_order.contact_person_on_day %>
+      <% j = tmp.size %>
+      <% tmp = tmp.reverse %>
+      <% if tmp.size > 0 %>
+        <% (0..tmp.size-1).each do |i| %>                
+          <%= tmp[i] %>
+          <% j = j-1 %>
+        <% end -%>
+      <% end %>
+
+    </div>
+  </div></br>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Contact mobile on day</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% tmp = @service_order.contact_mobile_on_day %>
+      <% j = tmp.size %>
+      <% tmp = tmp.reverse %>
+      <% if tmp.size > 0 %>
+        <% (0..tmp.size-1).each do |i| %>                
+          <%= tmp[i] %>
+          <% j = j-1 %>
+        <% end -%>
+      <% end %>
+    </div>
+  </div></br>
+
+  
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Venue Type</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% if @serviceord.venue_type != @service_order.venue_type %>
+        <span style="color: red;"><%= @service_order.venue_type %></span>
+      <% else %>
+        <%= @service_order.venue_type %>
+      <% end %>
+    </div>
+  </div></br>
+  
+
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Venue Name</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% if @serviceord.venue_name != @service_order.venue_name %>
+        <span style="color: red;"><%= @service_order.venue_name %></span>
+      <% else %>
+        <%= @service_order.venue_name %>
+      <% end %>
+    </div>
+  </div></br>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Venue Address</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% if @serviceord.venue_address != @service_order.venue_address %>
+        <span style="color: red;"><%= @service_order.venue_address %></span>
+      <% else %>
+        <%= @service_order.venue_address %>
+      <% end %>
+    </div>
+  </div></br>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-8 ">
+      <span>Venue Note</span>
+    </div>
+    <div class="col-md-6 col-sm-8 ">
+      <% if @serviceord.venue_notes != @service_order.venue_notes %>
+        <span style="color: red;"><%= @service_order.venue_notes %></span>
+      <% else %>
+        <%= @service_order.venue_notes %>
+      <% end %>
+    </div>
+  </div></br>
+
+
+  <div class="row">
+    <div class="col-md-4 col-sm-12 "></div>
+    <div class="col-md-2 col-sm-12 ">
+      <%= link_to "Accept", booking_change_status_booking_path(params[:id], status: true), class: "btn btn-lg btn-primary" %>
+    </div>
+    <div class="col-md-2 col-sm-12 ">
+      <%= link_to "Decline", booking_change_status_booking_path(params[:id], status: false), class: "btn btn-lg btn-primary" %>
+    </div>
+    <div class="col-md-4 col-sm-12 "></div>
+  </div>
+</div>
+
+<style type="text/css">
+  .booking_change span {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .booking_change {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+</style>

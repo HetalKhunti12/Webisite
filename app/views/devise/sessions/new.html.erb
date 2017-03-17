@@ -1,0 +1,44 @@
+<%= bootstrap_flash %>
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+<div class="card">
+    <div class="card-block">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+        <div class="text-xs-center">
+            <h3><i class="fa fa-lock"></i> Login:</h3>
+            <hr class="mt-2 mb-2">
+        </div>
+
+        <!--Body-->
+        <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <%= f.input :work_email, label: false, class: "form-control" %>
+            <label for="form2">Your email</label>
+        </div>
+
+        <div class="md-form">
+            <i class="fa fa-lock prefix"></i>
+            <%= f.input :password, label: false, class: "form-control" %>
+            <label for="form4">Your password</label>
+        </div>
+
+        <div class="text-xs-center">
+          <%= f.button :submit, "Log In", class: "btn btn-deep-purple" %>
+        </div>
+
+    </div>
+    <% end %>
+
+    <!--Footer-->
+    <div class="modal-footer">
+        <div class="options">
+            <p>Forgot <%= link_to "password?", new_password_path(@contact) %><br /></p>
+        </div>
+    </div>
+
+</div>
+</div>
+
+

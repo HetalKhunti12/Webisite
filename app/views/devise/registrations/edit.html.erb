@@ -1,0 +1,124 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  
+  <div class="inner-page clearfix">
+    <div class="container">
+      <div class="inner-ttl">ACCOUNT DETAIL</div>
+      
+      <div class="form-block ">
+        <div class="form-padding">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <div class="text-field">
+                <%= f.label "COMPANY NAME*" %>
+                <%= f.text_field :company, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "FIRST NAME*" %>
+                <%= f.text_field :first_name, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "ADDRESS" %>
+                <%= f.text_field :address, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "COUNTRY" %>
+                <%= f.select :work_country, options_for_select(CS.countries.map { |h| [h[1], h[0]] }, resource.work_country), {include_blank: "Select Country"}, class: "form-control"%>
+              </div>
+              <div class="text-field">
+                <%= f.label "STATE*" %>
+                <%= f.select :work_state, options_for_select(CS.states(resource.work_country).map { |h| [h[1], h[0]] }, resource.work_state),{include_blank: "Select State"}, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "SUBURB/TOWN" %>
+                <%= f.select :work_city, options_for_select(CS.cities(resource.work_state), resource.work_city),{include_blank: "Select City"}, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "POSTCODE" %>
+                <%= f.text_field :work_postcode, class: "form-control" %>
+              </div> 
+              <div class="text-field">
+                <%= f.label "PHONE *" %>
+                <%= f.text_field :work_phone, class: "form-control" %>
+              </div> 
+              <div class="text-field">
+                <%= f.label "MOBILE *" %>
+                <%= f.text_field :mobile_phone, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <div class="text-field">
+                <%= f.label "EMAIL*" %>
+                <%= f.text_field :work_email, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "PASSWORD *" %>
+                <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                <hint>(leave blank if you don't want to change it)</hint><br />
+                <% if @minimum_password_length %>
+                  <br />
+                  <em><%= @minimum_password_length %> characters minimum</em>
+                <% end %>
+                <%#= f.password_field :password, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "PASSWORD CONFIRMATION *" %>
+                <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "off" %>
+              </div>
+              <div class="text-field">
+                <%= f.label :current_password %> 
+                <%= f.password_field :current_password, class: "form-control", autocomplete: "off" %>
+                <hint>(we need your current password to confirm your changes)</hint><br />
+              </div>
+              <div class="text-field email-format">
+                <%= f.label "Prefered EMAIL FORMAT*" %>
+                <%= f.radio_button :email_format, "email", class: "a" %> HTML
+                <%= f.radio_button :email_format, "text" %> Text
+              </div>
+              <div class="text-field">
+                <%= f.label "*FAX" %>
+                <%= f.text_field :fax, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "WEBSITE" %>
+                <%= f.text_field :website, class: "form-control" %>
+              </div>
+              <div class="text-field">
+                <%= f.label "ABN" %>
+                <%= f.text_field :abn, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cust_detail_btn">
+          <div class="text-center"> 
+            <%= f.submit "Update", class: "send-btn"%>&nbsp;
+            <!-- <a href="#" class="reset-btn">Reset</a>  -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+  $("#contact_work_country").change(function() {
+    if($(this).val() != ""){
+      $.ajax({
+        type: "GET",
+        url: '/states/'+ $(this).val(),
+        dataType: "script"
+      });
+    }
+  });
+
+  $("#contact_work_state").change(function() {
+    if($(this).val() != ""){
+      $.ajax({
+        type: "GET",
+        url: '/cities/'+ $(this).val(),
+        dataType: "script"
+      });
+    }
+  });
+</script>

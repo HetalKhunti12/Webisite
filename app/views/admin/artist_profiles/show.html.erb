@@ -1,0 +1,75 @@
+
+<p>
+  <strong>Title:</strong>
+  <%= @artist_profile.title %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @artist_profile.country.name %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @artist_profile.state_id %>
+  <%= @artist_profile.location2 %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @artist_profile.category.name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @artist_profile.price %>
+</p>
+
+<p>
+  <table id="myTable" class="table table-striped table-hover table-responsive">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Artist profile</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @artist_profile.profile_images.each do |profile_image| %>
+      <tr>
+        <td><%= image_tag profile_image.image.url(:thumb) %></td>
+        <td><%= profile_image.title %></td>
+        <td><%= profile_image.description %></td>
+        <td><%= profile_image.artist_profile.title if profile_image.artist_profile.present? %></td>
+        <!-- <td><%#= link_to 'Show', profile_image %></td> -->
+        <td><%#= link_to 'Edit', edit_profile_image_path(profile_image) %></td>
+        <td><%#= link_to 'Destroy', profile_image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+
+    <% @artist_profile.profile_videos.each do |profile_video| %>
+      <tr>
+        <td><%#= profile_video.video_url.html_safe %>
+          <% if profile_video.video.present? %>
+            <%= video_tag profile_video.video.url, controls: true, type: "video/mp4", size: "400x400" %>
+          <% else %>
+
+            <iframe width="400" height="400" src="http://www.youtube.com/embed/15OxnO-uenU?modestbranding=1"       frameborder="0"></iframe>
+            <%#= video_tag(["https://www.youtube.com/watch?v=15OxnO-uenU"], :size => "320x240", :controls => true, type: "video/youtube") %>
+            <%#= video_tag profile_video.video_url, controls: true, size: "400x400", type: "video/mp4" %>
+          <% end %>
+        </td>
+        <td><%= profile_video.title %></td>
+        <td><%= profile_video.description %></td>
+        <td><%= profile_video.artist_profile.p_name if profile_video.artist_profile.present? %></td>
+        <!-- <td><%#= link_to 'Show', profile_video %></td> -->
+        <td><%#= link_to 'Edit', edit_profile_video_path(profile_video) %></td>
+        <td><%#= link_to 'Destroy', profile_video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</p>

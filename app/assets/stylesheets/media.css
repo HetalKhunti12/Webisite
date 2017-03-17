@@ -1,0 +1,265 @@
+/*
+ Theme Name: Entertainoz
+ Author:   ITCC     
+ Author URI:   http://www.itconsultingcompany.com.au/
+*/
+
+@media (max-width:1200px) {
+.service-container {
+		width: 100%;
+}
+}
+@media only screen and (min-width:992px) and (max-width:1024px) {
+}
+ @media (max-width:992px) {
+/*===============bootstrap responsive=================*/
+
+.main-menu-ul > ul > li:before {
+		display: none;
+}
+.navbar-header {
+		float: none;
+}
+.navbar-left, .navbar-right {
+		float: none !important;
+}
+.navbar-toggle {
+		display: block;
+		border: 1px solid #bd003a !important;
+		float: right;
+		margin-right: 0;
+		margin-top: 20px;
+}
+.navbar-default .navbar-toggle .icon-bar {
+		background-color: #bd003a !important;
+}
+.navbar-collapse {
+		border-top: 1px solid transparent;
+		box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.navbar-fixed-top {
+		top: 0;
+		border-width: 0 0 1px;
+}
+.navbar-collapse.collapse {
+		display: none!important;
+}
+.navbar-nav {
+		float: none!important;
+		margin-top: 7.5px;
+}
+.navbar-nav>li {
+		float: none;
+}
+.navbar-nav>li>a {
+		padding-top: 10px;
+		padding-bottom: 10px;
+}
+.dropdown-menu {
+		margin: 0;
+}
+.collapse.in {
+		display: block !important;
+}
+.navbar-collapse {
+		border: 0;
+		box-shadow: none;
+}
+.main-menu-ul ul {
+		float: none;
+		margin: 15px 0px;
+}
+.main-menu-ul ul > li > a {
+		margin-bottom: 5px;
+}
+.main-menu-ul ul li {
+		margin-left: 0;
+		float: none;
+		border: none;
+}
+.laurels_dropdown_menu {
+		display: list-item;
+		float: none;
+		box-shadow: none;
+		position: relative;
+		border: 0 none;
+		margin-left: 25px;
+		text-align: left;
+}
+.main-menu-ul ul li:hover ul li ul {
+		opacity: 1;
+		visibility: visible;
+}
+.main-menu-ul ul li ul ul {
+		left: 0;
+		visibility: visible;
+		position: relative;
+		opacity: 1;
+}
+.main-menu-ul ul > li > a {
+		padding: 3px 0px;
+		text-align: left;
+}
+.main-menu-ul > ul > li.current_page_item a, .main-menu-ul > ul > li > a:hover, .main-menu-ul > ul > li > a:focus {
+		transform: skew(0deg);
+}
+.main-menu-ul ul li ul {
+		text-align: left;
+		left: 0;
+		margin: 0;
+		position: relative;
+		text-align: left;
+		visibility: visible;
+		opacity: 1;
+		display: none;
+}
+.main-menu-ul ul li:hover ul {
+		display: block;
+		transition: ease-in all 0.5s;
+}
+.main-menu-ul ul li:hover ul li ul {
+		opacity: 0;
+		visibility: visible;
+		transition: ease-in all 0.5s;
+}
+.main-menu-ul ul li ul li:hover ul {
+		opacity: 1;
+		z-index: 1;
+		visibility: visible;
+		transition: ease-in all 0.5s;
+}
+.main-menu-ul ul li ul > li > a {
+		padding: 5px 0 5px 20px;
+}
+.main-menu-ul > ul > li > a {
+		font-size: 16px;
+}
+.main-menu-ul > ul > li:after {
+		display: none;
+}
+.logo-display {
+		width: 245px;
+		float: left;
+		z-index: 999;
+		left: 0;
+}
+.main_menu, ul.top-menu {
+		margin: 0;
+		text-align: center;
+}
+.container {
+		width: 100%;
+}
+.search-btn {
+		border: 2px solid #fff !important;
+}
+}
+@media only screen and (min-width:768px) and (max-width:992px) {
+.event .date img, .event .tickets img, .event .button img {
+		text-align: center;
+		float: none;
+}
+.event .date, .event .tickets, .event .button, ul.social_icon {
+		text-align: center;
+}
+.text-block {
+		font-size: 40px;
+		top: 53%;
+}
+}
+ @media (max-width:767px) {
+/*.popular_sect,.fetured-artists {
+		padding: 50px 25px;
+	}*/
+ul.social_icon, .copyright, .signature {
+		text-align: center;
+}
+.event .title, .event .date, .event .tickets, .event .button {
+		width: 100%;
+		padding-top: 15px;
+}
+.event .tickets {
+		padding-left: 0;
+}
+.event .title .text {
+		padding-top: 15px;
+}
+.event .button {
+		text-align: center;
+}
+.event .btn {
+		float: none;
+}
+.artists-btn, .view-all, .event .btn, a.view-more {
+		font-size: 18px !important;
+		white-space: normal;
+		display: inline-block;
+		margin-bottom: 10px;
+		padding: 8px 25px !important
+}
+.fetured-title, .section-title, .follow-text, .look_sect .big-text, .big-text {
+		font-size: 32px;
+		line-height: normal;
+}
+.small-text,.follow-text span {
+		font-size: 20px;
+}
+header {
+		position: relative;
+		background: #bd003a;
+}
+.main-text {
+		font-size: 30px;
+		line-height: normal;
+}
+.call {
+		float: none;
+		text-align: center;
+		margin: 0 auto;
+		display: block;
+}
+.text-block {
+		top: 42%;
+		font-size: 26px;
+}
+button.banner-btn {
+		font-size: 20px;
+		padding: 5px 30px;
+}
+.search-text {
+    margin: 0 0 10px;
+}
+.popular_sect,.fetured-artists{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.c1, .c2,.c3, .c4{
+	width:50%;
+	float:left;
+	margin: 10px 0;
+}
+.c3 {
+    clear: both;
+}
+.input-group {
+    width: 50%;
+    margin: 10px auto 0;
+}
+}
+@media (max-width:480px) {
+.text-block {
+		font-size: 16px;
+}
+button.banner-btn {
+		font-size: 14px;
+}
+.c1, .c2,.c3, .c4{
+	width:100%;
+	padding:0;
+}
+.input-group {
+    width: 80%;
+}
+}
+@media (max-width:479px) {
+}

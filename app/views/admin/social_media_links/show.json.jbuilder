@@ -1,0 +1,1 @@
+json.partial! "admin_social_media_links/admin_social_media_link", admin_social_media_link: @admin_social_media_link

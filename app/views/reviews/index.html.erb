@@ -1,0 +1,40 @@
+<div class="container">  
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Reviews</h1>
+    </div>
+    <div class="col-md-4 text-right">
+      <h1><%= link_to 'New Review', new_review_path, 'data-no-turbolink' => true,  :class => "btn btn-default align-center"  %></h1>
+    </div>
+  </div>
+
+  <% if @reviews.present? %>
+    <div class="table-responsive table-first">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Comment</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @reviews.each do |review| %>
+            <tr>
+              <td><%= review.title %></td>
+              <td><%= review.comment %></td>
+              <td><%= link_to '', edit_review_path(review), class: "fa fa-pencil-square-o btn-edit" %></td>
+              <td><%= link_to '', review, method: :delete, data: { confirm: 'Are you sure?' }, class: "fa fa-pencil-square-o btn-edit" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>>
+  <% else %>
+     <p>Record Not Found</p>
+  <% end %>
+</div>
+<br>
+

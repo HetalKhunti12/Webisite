@@ -1,0 +1,9 @@
+<% if contact_signed_in? %>
+  <li>
+  <%= link_to 'Logout', destroy_contact_session_path, class: "btn btn-success button-style"%>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to 'Login', new_contact_session_path, class: "btn btn-success button-style" %>  
+  </li>
+<% end %>

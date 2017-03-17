@@ -1,0 +1,85 @@
+<%= form_for(@artist_service_order) do |f| %>
+  
+  
+  <%= f.label :artist_profile_id %>
+  <%= f.select :artist_profile_id, options_for_select(ArtistProfile.all.map{|s|[s.p_name, s.id]}) %>
+
+  <div class="panel panel-default">    
+      <div class="panel-heading">Service Order</div>
+      <div class="panel-body so-section">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+                <%#= f.label :service_option_id %>
+                <%#= f.text_field :service_option_id %>             
+                <%= f.label "Service Order Summary "%>
+            </div>
+            <div class="col-md-8">
+             <%= f.text_field :so_summary, class:  "form-control" %> 
+            </div>
+          </div>  
+          <div class="row">
+            <div class="col-md-4">
+              <%= f.label "Further Details" %>
+            </div>
+            <div class="col-md-8">     
+               <%= f.text_area :description , class:  "form-control"%> 
+            </div>
+          </div>          
+          <div class="row">
+            <div class="col-md-4">
+              <%= f.label "Appointment Start" %>
+            </div>
+            <div class="col-md-8">  
+                <%= f.hidden_field :service_start %>   
+                <%#= render partial: "shared/datetime_picker", locals: {:form => f, :date_item=> :service_start, :extra_class => "start-datetime"} %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <%= f.label "Appointment End" %>
+            </div>
+            <div class="col-md-8">
+                <%= f.hidden_field :service_end %>     
+                <%#= render partial: "shared/datetime_picker", locals: {:form => f, :date_item=> :service_end, :extra_class => "end-datetime"} %>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="col-md-2">
+              <%= f.label "Perf Duration" %>
+            </div>
+            <div class="col-md-4">     
+              <%= f.text_field :total_performance_duration,  class:  "form-control perf_duration" %>
+            </div>
+            <div class="col-md-3">
+              <%= f.label "Callout Duration" %>
+            </div>
+            <div class="col-md-3">     
+              <%= f.text_field :callout_duration,  class:  "form-control"%>
+            </div>
+          </div>
+           
+          <br>
+         
+          <%#= render partial: "service_orders/service_orders_payment_grid_gross", locals: {sof: sof, po_index:po_index, po_gross_comm:gross_commission, lastid: mainid} %>
+          
+        </div>
+      </div>
+    </div>
+  
+     
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">       
+  $(function () {
+    $('.datepick').each(function(){
+      $(this).datetimepicker({
+        sideBySide: true
+      });
+    });
+  });
+</script>

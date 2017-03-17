@@ -1,0 +1,9 @@
+<% if @states.present?  %>
+	if($('#contact_work_state').length > 0){
+    $('#contact_work_state').html("<%= escape_javascript options_for_select(@states, @id) %>");
+   }
+  else{
+    $('#artist_profile_state_id').html("<%= escape_javascript options_for_select(@states, @id) %>");
+  }
+<% end %>
+

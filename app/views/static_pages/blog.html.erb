@@ -1,0 +1,37 @@
+<div class="container">
+   <div class="fetured-title pink bold">
+      <div class="text-uppercase Black">
+        Blogs
+      </div>
+    </div>
+
+  <% @blogs.each_slice(5) do |blogs|%>
+    <div class="row"> 
+      <% blogs.each do|blog| %> 
+        <div class="col-md-3 col-sm-4 popular-block blog">
+          <div class="blog-block">
+            <div class="blog-img">
+              <%= image_tag blog.blog_image.url %>
+              
+              <div class="date-block">
+                <div class="date"><%= blog.updated_at.strftime("%B %d, %Y")  %></div>
+                <div class="comment"><%= link_to "", leave_comment_static_pages_path(blog), class: "fa fa-comments" %></div>
+              </div>
+            </div>
+            <div class="blog-dtl">
+              <div class="blog_title"><%= blog.title %></div>
+              
+                  
+              <div class="blog_context clearfix">
+                <%= truncate(strip_tags(raw(blog.context)), :length => 100)%>
+              </div>
+            </div>
+            <div class="reg-block">
+              <%= link_to "Read More", leave_comment_static_pages_path(blog), class: "btn btn-register" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

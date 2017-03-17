@@ -1,0 +1,76 @@
+<div class="container"> 
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Profiles</h1>
+    </div>
+    <% #if current_contact.role.name == "service" and current_contact.artist_profiles.count < 1 %>
+      <!-- <div class="col-md-4 text-right"> -->
+        <!-- <h1><%#= link_to 'New Profile', new_artist_profile_path, 'data-no-turbolink' => true,  :class => "btn btn-default align-center"  %></h1> -->
+      <!-- </div> -->
+    <%# elsif current_contact.role.name == "artist" or current_contact.role.name == "both" %>
+      <div class="col-md-4 text-right">
+        <h1><%= link_to 'New Profile', new_artist_profile_path, 'data-no-turbolink' => true,  :class => "btn btn-default align-center"  %></h1>
+      </div>
+    <%# end %>
+  </div>
+  <% if @artist_profiles.present? %>
+    <div class="table-responsive table-first">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th> Edit </th>
+            <th> Delete </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @artist_profiles.each do |artist_profile| %>
+            <tr>
+              <td><%= artist_profile.title %></td>
+              <td><%= artist_profile.state %></td>
+              <td><%= artist_profile.location2 %></td>
+              <td><%= artist_profile.category.name if artist_profile.category.present? %></td>
+              <td>
+                <% if artist_profile.approved == true %>
+                  <%= image_tag("green.png", height: "25", width: "25") %>
+                <% else %>
+                  <%= image_tag("red.png", height: "25", width: "25") %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to '', edit_artist_profile_path(artist_profile.slug), :class => 'fa fa-pencil-square-o btn-edit' %></td>
+              <td>
+                <%= link_to ''.html_safe, artist_profile, remote: true, :method => :delete, data: {confirm: "Delete Profile: #{artist_profile.title}"}, :class => 'btn-dlt fa fa-trash' %></td>
+         </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="pull-right">
+      <%= will_paginate @artist_profiles, renderer: BootstrapPagination::Rails %>
+    </div>
+
+  <% else %>
+     <p>Record Not Found</p>
+  <% end %>
+</div> 
+<br>
+
+
+<style type="text/css">
+.search_sect1 {
+    padding: 10px 0;
+    text-align: center;
+    margin-top: 10px;
+}
+.bg_pink1 {
+    background: #ffcccc !important;
+}
+</style>

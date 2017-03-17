@@ -1,0 +1,66 @@
+<div class="container"> 
+
+  <h1>Listing Orders</h1>
+
+  <% if @orders.present? %>
+    <div class="table-responsive table-first">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Order No</th>
+            <th>Staff</th>
+            <th>Artists</th>
+            <th>Documents</th>
+            <th>Appointment Date</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% i = 0 %>
+          <% @orders.each do |booking| %>
+            <tr>
+              <td><%= i += 1 %></td>
+              <td><%= booking.staff_initials %></td>
+              
+              
+              <td><% booking.profile_orders.each do |book|%>
+                <span class="book_prof_name"><%= link_to book.p_name, booking_path(book.id) %></span>
+                <%= link_to "", new_conversation_path(email: book.p_email), class: "booking_message glyphicon glyphicon-envelope" %></br>
+                <% end %>
+              </td>
+
+              <td>
+                <% booking.profile_orders.each do |book|%>
+                  <% con = Contact.find_by_work_email(book.p_email) %>
+                  <% con.artist_profiles.each do |ap| %>
+                    <% if ap.title.to_s == book.p_name.to_s %>
+                      <span class="book_prof_name"><%= link_to "Show", document_path(ap.id) %></span>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </td>
+
+              <td>
+                <% booking.profile_orders.each do |profile_order|%>
+                  <% profile_order.service_orders.each do |service_order|%>
+                    <%= service_order.service_start.strftime('%d-%m-%y') %></br>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to 'Change', edit_booking_path(booking) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    No Record Found
+  <% end %>
+</div>
+
+  <br>
+
+<%#= link_to "booking_change", booking_change_booking_path(8)%>

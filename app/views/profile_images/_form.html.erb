@@ -1,0 +1,15 @@
+<%= simple_form_for(@profile_image, html: { multipart: true }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.file_field :image, lavel: "Image" %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.select :artist_profile_id, options_from_collection_for_select(current_contact.artist_profiles.all, :id, :p_name), {:include_blank => ''} , class: "form-control event_type" %>
+    <%#= f.input :artist_profile_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

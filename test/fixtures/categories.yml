@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  categoryName: MyString
+  categoryParentId: 1
+  categoryDescription: MyText
+  categoryChildren: 1
+  categorySectionId: 1
+  categoryDepth: 1
+  categorySequence: 1
+  categorySequenceAlpha: 1
+  categoryLineage: MyText
+  url_path: MyString
+  categoryIntroduction: MyText
+  CategoryByline: MyString
+  CategoryTitle: MyString
+
+two:
+  categoryName: MyString
+  categoryParentId: 1
+  categoryDescription: MyText
+  categoryChildren: 1
+  categorySectionId: 1
+  categoryDepth: 1
+  categorySequence: 1
+  categorySequenceAlpha: 1
+  categoryLineage: MyText
+  url_path: MyString
+  categoryIntroduction: MyText
+  CategoryByline: MyString
+  CategoryTitle: MyString
